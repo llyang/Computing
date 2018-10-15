@@ -5,7 +5,8 @@ CXXFLAGS = -std=c++11
 
 default: all
 
-all: vector_error.exe sqrt_error.exe sqrt_nan.exe
+all: vector_error.exe sqrt_error.exe sqrt_nan.exe \
+  sqrt_exception.exe
 
 %.exe: %.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $<
