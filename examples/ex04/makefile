@@ -1,0 +1,14 @@
+CXX = g++
+CXXFLAGS = -std=c++11 
+
+.PHONY: default all
+
+default: all
+
+all: vector_error.exe
+
+%.exe: %.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+clean:
+	$(RM) *.exe
