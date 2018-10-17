@@ -1,6 +1,7 @@
 #include <cmath>
 #include <iostream>
 #include <vector>
+#include <stdexcept>
 
 using namespace std;
 
