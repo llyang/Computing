@@ -7,7 +7,7 @@ default: all
 
 all: vector_error.exe sqrt_error.exe sqrt_nan.exe \
   sqrt_exception.exe vector_range.exe multiple_exceptions.exe \
-  catch_exception.exe
+  catch_exception.exe logical_error.exe
 
 %.exe: %.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $<
