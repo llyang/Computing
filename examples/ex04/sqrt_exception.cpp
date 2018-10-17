@@ -18,12 +18,18 @@ double my_sqrt(double x) {
   return a;
 }
 
+double sqrt_wrapper(double x) {
+  return my_sqrt(x); // 这里可能会甩出一口锅
+  // 这里没有try-catch：我不想背锅
+}
+
 int main() {
   double x;
   cin >> x;
   try {
-    cout << my_sqrt(x) << '\n';
-  } catch (my_sqrt_error) {
+    cout << sqrt_wrapper(x) << '\n';
+  } catch (my_sqrt_error) { // 锅甩到了这里才被接住
     cout << "my_sqrt_error\n";
   }
 }
+
