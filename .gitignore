@@ -35,3 +35,8 @@
 DerivedData
 project.xcworkspace
 xcuserdata
+# Code::Blocks
+bin
+obj
+*.depend
+*.layout
