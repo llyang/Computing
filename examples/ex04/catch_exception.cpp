@@ -7,13 +7,13 @@ class some_error {};
 
 int some_function(int x) {
   if (x < 0) {
-    throw(runtime_error("error: x < 0"));
+    throw runtime_error{"error: x < 0"};
   }
   if (x > 100) {
-    throw(out_of_range("error: x > 100"));
+    throw out_of_range{"error: x > 100"};
   }
   if (x == 10) {
-    throw(some_error{});
+    throw some_error{};
   }
   return x;
 }
