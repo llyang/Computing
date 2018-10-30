@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-int main() {
-
+int main()
+{
   std::cout << "You shall not pass!" << '\n';
 
   return 0;

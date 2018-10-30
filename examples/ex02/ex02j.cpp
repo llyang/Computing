@@ -2,9 +2,10 @@
 
 using namespace std;
 
-int main() {
-  int number_of_words{0};
-  string previous{" "};
+int main()
+{
+  int number_of_words { 0 };
+  string previous { " " };
   string current;
   while (cin >> current) {
     ++number_of_words;

@@ -2,8 +2,9 @@
 
 using namespace std;
 
-int main() {
-  double d{0};
+int main()
+{
+  double d { 0 };
   while (cin >> d) {
     int i = d;
     char c = i;

@@ -3,9 +3,10 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
   cout << "Please enter a floating-point value: ";
-  double x;
+  double x { 0 };
   cin >> x;
   cout << "x = " << x << '\n';
   cout << "x+1 = " << x + 1 << '\n';

@@ -3,14 +3,14 @@
 
 using namespace std;
 
-int main() {
-
+int main()
+{
   // 定义变量并初始化
-  int number_of_apples{10}; // 整数
-  double pi{3.14};          // 双精度浮点数
-  char c{'a'};              // 字符
-  string name{"Voldemort"}; // 字符串
-  bool is_holiday{false};   // 布尔型
+  int number_of_apples { 10 }; // 整数
+  double pi { 3.14 }; // 双精度浮点数
+  char c { 'a' }; // 字符
+  string name { "Voldemort" }; // 字符串
+  bool is_holiday { false }; // 布尔型
 
   cout << number_of_apples << '\n';
   cout << pi << '\n';

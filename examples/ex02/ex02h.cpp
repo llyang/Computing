@@ -2,10 +2,11 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
   cout << "Please input two integers\n";
-  int first;
-  int second;
+  int first { 0 };
+  int second { 0 };
   cin >> first >> second;
   if (first == second) {
     cout << "They are equal!\n";
