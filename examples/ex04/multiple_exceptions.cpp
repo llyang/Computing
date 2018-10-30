@@ -26,10 +26,10 @@ double my_sqrt(double x)
 int main()
 {
   vector<int> v { 1, 2, -3, -4, 5 };
-  int i;
+  int i { 0 };
   cin >> i;
   try {
-    double x = my_sqrt(v.at(i));
+    double x { my_sqrt(v.at(i)) };
     cout << "sqrt(v[" << i << "]) = " << x << '\n';
   } catch (out_of_range) {
     cerr << "out of range: i = " << i << '\n';

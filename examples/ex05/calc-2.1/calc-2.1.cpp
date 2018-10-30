@@ -17,14 +17,15 @@ using std::cout;
 using std::exception;
 using std::runtime_error;
 
-int main() {
+int main()
+{
   try {
-    double val{0};
+    double val { 0 };
     while (cin) {
       val = expression();
       cout << "= " << val << '\n';
     }
-  } catch (exception &e) {
+  } catch (exception& e) {
     cerr << e.what() << '\n';
     return 1;
   } catch (...) {
@@ -34,10 +35,11 @@ int main() {
 }
 
 // return the value of the next expression
-double expression() {
-  double left = term();
+double expression()
+{
+  double left { term() };
   while (true) {
-    Token t = ts.get();
+    Token t { ts.get() };
     switch (t.kind) {
     case '+':
       left += term();
@@ -53,18 +55,19 @@ double expression() {
 }
 
 // return the value of the next term
-double term() {
-  double left = primary();
+double term()
+{
+  double left { primary() };
   while (true) {
-    Token t = ts.get();
+    Token t { ts.get() };
     switch (t.kind) {
     case '*':
       left *= primary();
       break;
     case '/': {
-      double d = primary();
+      double d { primary() };
       if (d == 0) {
-        throw runtime_error("divide by zero");
+        throw runtime_error { "divide by zero" };
       }
       left /= d;
       break;
@@ -77,21 +80,22 @@ double term() {
 }
 
 // return the value of the next primary
-double primary() {
-  Token t = ts.get();
+double primary()
+{
+  Token t { ts.get() };
   switch (t.kind) {
   case '(': {
-    double d = expression();
+    double d { expression() };
     t = ts.get();
     if (t.kind != ')') {
-      throw runtime_error("')' expected");
+      throw runtime_error { "')' expected" };
     }
     return d;
   }
   case '6':
     return t.value;
   default:
-    throw runtime_error("primary expected");
+    throw runtime_error { "primary expected" };
   }
 }
 

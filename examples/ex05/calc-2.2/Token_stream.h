@@ -9,7 +9,7 @@ public:
   void putback(Token t);
 
 private:
-  bool full{false};
+  bool full { false };
   Token buffer;
 };
 

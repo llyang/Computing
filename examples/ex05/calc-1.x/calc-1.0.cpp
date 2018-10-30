@@ -2,18 +2,19 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
   cout << "Expression: ";
 
-  double lval{0};
-  double rval{0};
-  char op{' '};
+  double lval { 0 };
+  double rval { 0 };
+  char op { ' ' };
   cin >> lval >> op >> rval;
   if (!cin) {
-    throw runtime_error("input error");
+    throw runtime_error { "input error" };
   }
 
-  double res;
+  double res { 0 };
   switch (op) {
   case '+':
     res = lval + rval;
@@ -28,7 +29,7 @@ int main() {
     res = lval / rval;
     break;
   default:
-    throw runtime_error("unknown operator");
+    throw runtime_error { "unknown operator" };
   }
 
   cout << "Result: " << res << '\n';

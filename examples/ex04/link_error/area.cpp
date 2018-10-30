@@ -1,2 +1,5 @@
-int area(int length, int width) { return length * width; }
+int area(int length, int width)
+{
+  return length * width;
+}
 

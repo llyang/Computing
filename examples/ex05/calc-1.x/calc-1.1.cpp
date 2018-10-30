@@ -3,22 +3,23 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
   cout << "Expression (end with ';'): ";
 
-  double lval{0};
+  double lval { 0 };
   cin >> lval;
   if (!cin) {
-    throw runtime_error("no first operand");
+    throw runtime_error { "no first operand" };
   }
 
   for (char op; cin >> op;) {
-    double rval{0};
+    double rval { 0 };
     if (op != ';') {
       cin >> rval;
     }
     if (!cin) {
-      throw runtime_error("no second operand");
+      throw runtime_error { "no second operand" };
     }
     switch (op) {
     case '+':

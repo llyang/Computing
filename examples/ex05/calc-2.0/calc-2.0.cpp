@@ -18,13 +18,14 @@ using std::cout;
 using std::exception;
 using std::runtime_error;
 
-int main() {
+int main()
+{
   try {
     while (cin) {
-      double result = expression();
+      double result { expression() };
       cout << "= " << result << '\n';
     }
-  } catch (exception &e) {
+  } catch (exception& e) {
     cerr << e.what() << '\n';
     return 1;
   } catch (...) {
@@ -34,10 +35,11 @@ int main() {
 }
 
 // return the value of the next expression
-double expression() {
-  double left = term();
+double expression()
+{
+  double left { term() };
   while (true) {
-    Token t = get_token();
+    Token t { get_token() };
     switch (t.kind) {
     case '+':
       left += term();
@@ -52,18 +54,19 @@ double expression() {
 }
 
 // return the value of the next term
-double term() {
-  double left = primary();
+double term()
+{
+  double left { primary() };
   while (true) {
-    Token t = get_token();
+    Token t { get_token() };
     switch (t.kind) {
     case '*':
       left *= primary();
       break;
     case '/': {
-      double d = primary();
+      double d { primary() };
       if (d == 0) {
-        throw runtime_error("divide by zero");
+        throw runtime_error { "divide by zero" };
       }
       left /= d;
       break;
@@ -75,27 +78,29 @@ double term() {
 }
 
 // return the value of the next primary
-double primary() {
-  Token t = get_token();
+double primary()
+{
+  Token t { get_token() };
   switch (t.kind) {
   case '(': {
-    double d = expression();
+    double d { expression() };
     t = get_token();
     if (t.kind != ')') {
-      throw runtime_error("')' expected");
+      throw runtime_error { "')' expected" };
     }
     return d;
   }
   case '6':
     return t.value;
   default:
-    throw runtime_error("primary expected");
+    throw runtime_error { "primary expected" };
   }
 }
 
 // get the next token from cin
-Token get_token() {
-  char ch;
+Token get_token()
+{
+  char ch { ' ' };
   cin >> ch;
 
   switch (ch) {
@@ -105,7 +110,7 @@ Token get_token() {
   case '-':
   case '*':
   case '/':
-    return Token{ch};
+    return Token { ch };
   case '.':
   case '0':
   case '1':
@@ -118,12 +123,12 @@ Token get_token() {
   case '8':
   case '9': {
     cin.putback(ch);
-    double val;
+    double val { 0 };
     cin >> val;
-    return Token{'6', val};
+    return Token { '6', val };
   }
   default:
-    throw runtime_error("Bad token");
+    throw runtime_error { "Bad token" };
   }
 }
 

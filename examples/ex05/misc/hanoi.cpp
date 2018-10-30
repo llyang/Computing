@@ -1,8 +1,10 @@
 #include <iostream>
 
-using namespace std;
+using std::cout;
+using std::string;
 
-void hanoi(int n, string from, string to, string other) {
+void hanoi(int n, string from, string to, string other)
+{
   if (n < 1) {
     return;
   }
@@ -11,5 +13,8 @@ void hanoi(int n, string from, string to, string other) {
   hanoi(n - 1, other, to, from);
 }
 
-int main() { hanoi(3, "A", "B", "C"); }
+int main()
+{
+  hanoi(3, "A", "B", "C");
+}
 

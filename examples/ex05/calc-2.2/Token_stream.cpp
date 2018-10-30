@@ -6,21 +6,23 @@
 using std::cin;
 using std::runtime_error;
 
-void Token_stream::putback(Token t) {
+void Token_stream::putback(Token t)
+{
   if (full) {
-    throw runtime_error("putback() into a full buffer");
+    throw runtime_error { "putback() into a full buffer" };
   }
   buffer = t;
   full = true;
 }
 
-Token Token_stream::get() {
+Token Token_stream::get()
+{
   if (full) {
     full = false;
     return buffer;
   }
 
-  char ch;
+  char ch { ' ' };
   cin >> ch;
 
   switch (ch) {
@@ -32,7 +34,7 @@ Token Token_stream::get() {
   case '-':
   case '*':
   case '/':
-    return Token{ch};
+    return Token { ch };
   case '.':
   case '0':
   case '1':
@@ -45,11 +47,11 @@ Token Token_stream::get() {
   case '8':
   case '9': {
     cin.putback(ch);
-    double val;
+    double val { 0 };
     cin >> val;
-    return Token{'6', val};
+    return Token { '6', val };
   }
   default:
-    throw runtime_error("Bad token");
+    throw runtime_error { "Bad token" };
   }
 }

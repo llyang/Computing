@@ -6,16 +6,17 @@ public:
   double value;
 };
 
-using namespace std;
+using std::cout;
 
-int main() {
-  Token t1{'+'}; // t1.kind = '+'
+int main()
+{
+  Token t1 { '+' }; // t1.kind = '+'
   cout << "t1: " << t1.kind << " " << t1.value << '\n';
 
-  Token t2{'6', 3.2}; // t2.kind = '6', t2.value = 3.2
+  Token t2 { '6', 3.2 }; // t2.kind = '6', t2.value = 3.2
   cout << "t2: " << t2.kind << " " << t2.value << '\n';
 
-  Token t3{t2};
+  Token t3 { t2 };
   cout << "t3: " << t3.kind << " " << t3.value << '\n';
 
   t3 = t1;
