@@ -2,15 +2,17 @@
 #include <iostream>
 using namespace std;
 
-class my_sqrt_error {};
+class my_sqrt_error {
+};
 
-double my_sqrt(double x) {
+double my_sqrt(double x)
+{
   if (x < 0) {
-    throw my_sqrt_error{};
+    throw my_sqrt_error {};
   }
-  const double error{1e-6};
-  double a{x};
-  double b{1};
+  const double error { 1e-6 };
+  double a { x };
+  double b { 1 };
   while (abs((a - b) / min(a, b)) > error) {
     a = (a + b) / 2;
     b = x / a;
@@ -18,13 +20,15 @@ double my_sqrt(double x) {
   return a;
 }
 
-double sqrt_wrapper(double x) {
+double sqrt_wrapper(double x)
+{
   return my_sqrt(x); // 这里可能会甩出一口锅
   // 这里没有try-catch：我不想背锅
 }
 
-int main() {
-  double x;
+int main()
+{
+  double x { 0 };
   cin >> x;
   try {
     cout << sqrt_wrapper(x) << '\n';
