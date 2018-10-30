@@ -4,7 +4,8 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
   vector<string> words;
   for (string temp; cin >> temp;) {
     words.push_back(temp);

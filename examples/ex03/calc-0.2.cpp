@@ -2,15 +2,15 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
   string operation;
-  double val1{0};
-  double val2{0};
+  double val1 { 0 };
+  double val2 { 0 };
 
-  cout << "Please enter an operation (+,-,*,/,plus,minus,mul,div) followed by "
-          "two floating-point values:\n";
+  cout << "Please enter an operation (+,-,*,/,plus,minus,mul,div) followed by two floating-point values:\n";
   while (cin >> operation >> val1 >> val2) {
-    double res{0};
+    double res { 0 };
     if (operation == "+" || operation == "plus") {
       res = val1 + val2;
     } else if (operation == "-" || operation == "minus") {

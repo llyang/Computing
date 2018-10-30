@@ -4,8 +4,9 @@
 
 using namespace std;
 
-int main() {
-  constexpr int max{100};
+int main()
+{
+  constexpr int max { 100 };
   vector<bool> is_prime(max + 1, true);
 
   for (int i = 2; i <= sqrt(max); ++i) {
