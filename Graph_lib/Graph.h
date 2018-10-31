@@ -32,12 +32,29 @@ public:
     dark_magenta = FL_DARK_MAGENTA,
     dark_cyan = FL_DARK_CYAN
   };
-  enum Transparency { invisible = 0, visible = 255 };
+  enum Transparency { invisible = 0,
+    visible = 255 };
 
-  Color(Color_type cc) : c{static_cast<Fl_Color>(cc)}, v{visible} {}
-  Color(Color_type cc, Transparency vv) : c{static_cast<Fl_Color>(cc)}, v{vv} {}
-  Color(int cc) : c{static_cast<Fl_Color>(cc)}, v{visible} {}
-  Color(Transparency vv) : c{Fl_Color{}}, v{vv} {}
+  Color(Color_type cc)
+      : c { static_cast<Fl_Color>(cc) }
+      , v { visible }
+  {
+  }
+  Color(Color_type cc, Transparency vv)
+      : c { static_cast<Fl_Color>(cc) }
+      , v { vv }
+  {
+  }
+  Color(int cc)
+      : c { static_cast<Fl_Color>(cc) }
+      , v { visible }
+  {
+  }
+  Color(Transparency vv)
+      : c { Fl_Color {} }
+      , v { vv }
+  {
+  }
 
   int as_int() const { return c; }
   char visibility() const { return v; }
@@ -51,16 +68,28 @@ private:
 class Line_style {
 public:
   enum Line_style_type {
-    solid = FL_SOLID,           // -------
-    dash = FL_DASH,             // - - - -
-    dot = FL_DOT,               // .......
-    dashdot = FL_DASHDOT,       // - . - .
+    solid = FL_SOLID, // -------
+    dash = FL_DASH, // - - - -
+    dot = FL_DOT, // .......
+    dashdot = FL_DASHDOT, // - . - .
     dashdotdot = FL_DASHDOTDOT, // -..-..
   };
 
-  Line_style(Line_style_type ss) : s{ss}, w{0} {}
-  Line_style(Line_style_type lst, int ww) : s{lst}, w{ww} {}
-  Line_style(int ss) : s{ss}, w{0} {}
+  Line_style(Line_style_type ss)
+      : s { ss }
+      , w { 0 }
+  {
+  }
+  Line_style(Line_style_type lst, int ww)
+      : s { lst }
+      , w { ww }
+  {
+  }
+  Line_style(int ss)
+      : s { ss }
+      , w { 0 }
+  {
+  }
 
   int width() const { return w; }
   int style() const { return s; }
@@ -91,8 +120,14 @@ public:
     zapf_dingbats = FL_ZAPF_DINGBATS
   };
 
-  Font(Font_type ff) : f{ff} {}
-  Font(int ff) : f{ff} {}
+  Font(Font_type ff)
+      : f { ff }
+  {
+  }
+  Font(int ff)
+      : f { ff }
+  {
+  }
 
   int as_int() const { return f; }
 
@@ -102,8 +137,16 @@ private:
 
 class Fill {
 public:
-  Fill() : no_fill{true}, fcolor{0} {}
-  Fill(Color c) : no_fill{false}, fcolor{c} {}
+  Fill()
+      : no_fill { true }
+      , fcolor { 0 }
+  {
+  }
+  Fill(Color c)
+      : no_fill { false }
+      , fcolor { c }
+  {
+  }
 
   void set_fill_color(Color col) { fcolor = col; }
   Color fill_color() { return fcolor; }
@@ -136,8 +179,8 @@ public:
   int number_of_points() const { return int(points.size()); }
 
   virtual ~Shape() {}
-  Shape(const Shape &) = delete;
-  Shape &operator=(const Shape &) = delete;
+  Shape(const Shape&) = delete;
+  Shape& operator=(const Shape&) = delete;
 
 protected:
   Shape() {}
@@ -150,9 +193,9 @@ protected:
 
 private:
   std::vector<Point> points; // not used by all shapes
-  Color lcolor{static_cast<int>(fl_color())};
-  Line_style ls{0};
-  Color fcolor{Color::invisible};
+  Color lcolor { static_cast<int>(fl_color()) };
+  Line_style ls { 0 };
+  Color fcolor { Color::invisible };
 };
 
 ////////////////////////////////////////
@@ -160,7 +203,8 @@ private:
 // Simple shapes
 
 struct Line : Shape {
-  Line(Point p1, Point p2) {
+  Line(Point p1, Point p2)
+  {
     add(p1);
     add(p2);
   }
@@ -168,16 +212,22 @@ struct Line : Shape {
 
 class Rectangle : public Shape {
 public:
-  Rectangle(Point xy, int ww, int hh) : w{ww}, h{hh} {
+  Rectangle(Point xy, int ww, int hh)
+      : w { ww }
+      , h { hh }
+  {
     if (h <= 0 || w <= 0) {
-      throw std::runtime_error("Bad rectangle: non-positive side");
+      throw std::runtime_error { "Bad rectangle: non-positive side" };
     }
     add(xy);
   }
 
-  Rectangle(Point x, Point y) : w{y.x - x.x}, h{y.y - x.y} {
+  Rectangle(Point x, Point y)
+      : w { y.x - x.x }
+      , h { y.y - x.y }
+  {
     if (h <= 0 || w <= 0) {
-      throw std::runtime_error("Bad rectangle: first point is not top left");
+      throw std::runtime_error { "Bad rectangle: first point is not top left" };
     }
     add(x);
   }
@@ -206,14 +256,17 @@ struct Closed_polyline : Open_polyline { // closed sequence of lines
 struct Lines : Shape { // indepentdent lines
   Lines() {}
 
-  Lines(std::initializer_list<Point> lst) : Shape{lst} {
+  Lines(std::initializer_list<Point> lst)
+      : Shape { lst }
+  {
     if (lst.size() % 2) {
-      throw std::runtime_error("odd number of points for Lines");
+      throw std::runtime_error { "odd number of points for Lines" };
     }
   }
 
   void draw_lines() const;
-  void add(Point p1, Point p2) {
+  void add(Point p1, Point p2)
+  {
     Shape::add(p1);
     Shape::add(p2);
   }
@@ -224,11 +277,15 @@ struct Lines : Shape { // indepentdent lines
 class Text : public Shape {
 public:
   // the point is the bottom left of the first letter
-  Text(Point x, const std::string &s) : lab{s} { add(x); }
+  Text(Point x, const std::string& s)
+      : lab { s }
+  {
+    add(x);
+  }
 
   void draw_lines() const;
 
-  void set_label(const std::string &s) { lab = s; }
+  void set_label(const std::string& s) { lab = s; }
   std::string label() const { return lab; }
 
   void set_font(Font f) { fnt = f; }
@@ -239,8 +296,8 @@ public:
 
 private:
   std::string lab; // label
-  Font fnt{fl_font()};
-  int fnt_sz{(14 < fl_size()) ? fl_size() : 14}; // at least 14 point
+  Font fnt { fl_font() };
+  int fnt_sz { (14 < fl_size()) ? fl_size() : 14 }; // at least 14 point
 };
 
 ////////////////////////////////////////
@@ -248,11 +305,15 @@ private:
 class Circle : public Shape {
 public:
   // center and radius
-  Circle(Point p, int rr) : r{rr} { add(Point{p.x - r, p.y - r}); }
+  Circle(Point p, int rr)
+      : r { rr }
+  {
+    add(Point { p.x - r, p.y - r });
+  }
 
   void draw_lines() const;
 
-  Point center() const { return {point(0).x + r, point(0).y + r}; }
+  Point center() const { return { point(0).x + r, point(0).y + r }; }
 
   void set_radius(int rr) { r = rr; }
   int radius() const { return r; }
@@ -264,18 +325,23 @@ private:
 class Ellipse : public Shape {
 public:
   // center, min, and max distance from center
-  Ellipse(Point p, int ww, int hh) : w{ww}, h{hh} {
-    add(Point{p.x - ww, p.y - hh});
+  Ellipse(Point p, int ww, int hh)
+      : w { ww }
+      , h { hh }
+  {
+    add(Point { p.x - ww, p.y - hh });
   }
 
   void draw_lines() const;
 
-  Point center() const { return {point(0).x + w, point(0).y + h}; }
-  Point focus1() const {
-    return {center().x + int(std::sqrt(double(w * w - h * h))), center().y};
+  Point center() const { return { point(0).x + w, point(0).y + h }; }
+  Point focus1() const
+  {
+    return { center().x + int(std::sqrt(double(w * w - h * h))), center().y };
   }
-  Point focus2() const {
-    return {center().x - int(std::sqrt(double(w * w - h * h))), center().y};
+  Point focus2() const
+  {
+    return { center().x - int(std::sqrt(double(w * w - h * h))), center().y };
   }
 
   void set_major(int ww) { w = ww; }
@@ -292,7 +358,10 @@ private:
 
 class Marked_polyline : public Open_polyline {
 public:
-  Marked_polyline(const std::string &m) : mark{m} {}
+  Marked_polyline(const std::string& m)
+      : mark { m }
+  {
+  }
   void draw_lines() const;
 
 private:
@@ -300,13 +369,19 @@ private:
 };
 
 struct Marks : Marked_polyline {
-  Marks(const std::string &m) : Marked_polyline{m} {
-    set_color(Color{Color::invisible});
+  Marks(const std::string& m)
+      : Marked_polyline { m }
+  {
+    set_color(Color { Color::invisible });
   }
 };
 
 struct Mark : Marks {
-  Mark(Point xy, char c) : Marks{std::string(1, c)} { add(xy); }
+  Mark(Point xy, char c)
+      : Marks { std::string(1, c) }
+  {
+    add(xy);
+  }
 };
 
 ////////////////////////////////////////
@@ -314,15 +389,22 @@ struct Mark : Marks {
 // Image files
 
 struct Bad_image : Fl_Image {
-  Bad_image(int h, int w) : Fl_Image{h, w, 0} {}
+  Bad_image(int h, int w)
+      : Fl_Image { h, w, 0 }
+  {
+  }
   void draw(int x, int y, int, int, int, int) { draw_empty(x, y); }
 };
 
 struct Suffix {
-  enum Encoding { none, jpg, gif, png, bmp };
+  enum Encoding { none,
+    jpg,
+    gif,
+    png,
+    bmp };
 };
 
-Suffix::Encoding get_encoding(const std::string &s);
+Suffix::Encoding get_encoding(const std::string& s);
 
 class Image : public Shape {
 public:
@@ -331,14 +413,16 @@ public:
 
   void draw_lines() const;
 
-  void set_mask(Point xy, int ww, int hh) {
+  void set_mask(Point xy, int ww, int hh)
+  {
     w = ww;
     h = hh;
     cx = xy.x;
     cy = xy.y;
   }
 
-  void move(int dx, int dy) {
+  void move(int dx, int dy)
+  {
     Shape::move(dx, dy);
     p->draw(point(0).x, point(0).y);
   }
@@ -346,7 +430,7 @@ public:
 private:
   int w, h, cx,
       cy; // define "masking box" within image relative to position (cx,cy)
-  Fl_Image *p;
+  Fl_Image* p;
   Text fn;
 };
 

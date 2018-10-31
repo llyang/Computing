@@ -8,17 +8,19 @@
 class Simple_window : public Graph_lib::Window {
 
 public:
-  Simple_window(Graph_lib::Point xy, int w, int h, const std::string &title)
-      : Graph_lib::Window{xy, w, h, title},
-        quit_button{Graph_lib::Point{x_max() - 70, 0}, 70, 20, "Quit", cb_quit},
-        next_button{Graph_lib::Point{x_max() - 70, 20}, 70, 20, "Next",
-                    cb_next},
-        next_pushed{false} {
+  Simple_window(Graph_lib::Point xy, int w, int h, const std::string& title)
+      : Graph_lib::Window { xy, w, h, title }
+      , quit_button { Graph_lib::Point { x_max() - 70, 0 }, 70, 20, "Quit", cb_quit }
+      , next_button { Graph_lib::Point { x_max() - 70, 20 }, 70, 20, "Next",
+        cb_next }
+      , next_pushed { false }
+  {
     attach(quit_button);
     attach(next_button);
   }
 
-  void wait_for_next() {
+  void wait_for_next()
+  {
     while (!next_pushed && Fl::wait())
       ;
     next_pushed = false;
@@ -32,15 +34,17 @@ private:
   bool next_pushed;
 
   // callback for quit_button
-  static void cb_quit(void *, void *pw) {
-    static_cast<Simple_window *>(pw)->quit();
+  static void cb_quit(void*, void* pw)
+  {
+    static_cast<Simple_window*>(pw)->quit();
   }
 
   void quit() { hide(); }
 
   // callback for next_button
-  static void cb_next(void *, void *pw) {
-    static_cast<Simple_window *>(pw)->next();
+  static void cb_next(void*, void* pw)
+  {
+    static_cast<Simple_window*>(pw)->next();
   }
 
   void next() { next_pushed = true; }
