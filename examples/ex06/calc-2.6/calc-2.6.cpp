@@ -1,3 +1,42 @@
+/*
+
+Simple calculator
+
+The grammar for input is:
+
+        Statement:
+          Expression
+          Print
+          Quit
+
+        Print:
+          ;
+
+        Quit:
+          q
+
+        Expression:
+          Term
+          Expression + Term
+          Expression - Term
+
+        Term:
+          Primary
+          Term * Primary
+          Term / Primary
+          Term % Primary
+
+        Primary:
+          Number
+          ( Expression )
+          - Primary
+          + Primary
+
+        Number:
+          floating-point-literal
+
+*/
+
 #include <cmath>
 #include <iostream>
 #include <stdexcept>
