@@ -41,3 +41,6 @@ bin
 obj
 *.depend
 *.layout
+
+# Vim
+*.swp
