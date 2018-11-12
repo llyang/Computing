@@ -4,10 +4,15 @@ Simple calculator
 
 The grammar for input is:
 
-        Statement:
-          Expression
+        Calculation:
+          Statement
           Print
           Quit
+          Calculation Statement
+
+        Statement:
+          Declaration
+          Expression
 
         Print:
           ;
