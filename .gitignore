@@ -44,3 +44,7 @@ obj
 
 # Vim
 *.swp
+
+# Java
+*.class
+
