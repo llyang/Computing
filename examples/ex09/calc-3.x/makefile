@@ -5,7 +5,7 @@ CXXFLAGS = -std=c++11
 
 default: all
 
-all: calc-3.0.exe
+all: calc-3.0.exe calc-3.1.exe calc-3.2.exe calc-3.3.exe
 
 OBJECTS = Token_stream.o Calculator.o Variable.o
 HEADERS = Token.h Token_stream.h Calculator.h Variable.h
