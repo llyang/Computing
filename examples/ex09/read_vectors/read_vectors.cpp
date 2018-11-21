@@ -3,7 +3,12 @@
 #include <stdexcept>
 #include <vector>
 
-using namespace std;
+using std::cerr;
+using std::cout;
+using std::ifstream;
+using std::istream;
+using std::runtime_error;
+using std::vector;
 
 vector<int> read_vector(istream& ist, char terminator)
 {
@@ -26,7 +31,7 @@ vector<int> read_vector(istream& ist, char terminator)
     if (c != terminator) {
       cerr << "error reading vector\n";
       ist.unget(); // 放回上一次读入的字符
-      ist.clear(ios_base::failbit); // 将状态设为fail
+      ist.clear(std::ios_base::failbit); // 将状态设为fail
     }
   }
 
