@@ -49,12 +49,14 @@ double declaration(Token_stream& ts)
 {
   Token t { ts.get() };
   if (t.kind != name) {
+    ts.putback(t);
     throw runtime_error { "name expected in declaration" };
   }
   string var_name { t.name };
 
   Token t2 { ts.get() };
   if (t2.kind != '=') {
+    ts.putback(t2);
     throw runtime_error { "= missing in declaration of " + var_name };
   }
 
@@ -137,6 +139,7 @@ double primary(Token_stream& ts)
     double d { expression(ts) };
     t = ts.get();
     if (t.kind != ')') {
+      ts.putback(t);
       throw runtime_error { "')' expected" };
     }
     return d;

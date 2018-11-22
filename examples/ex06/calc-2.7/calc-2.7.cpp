@@ -161,6 +161,7 @@ double primary()
     double d { expression() };
     t = ts.get();
     if (t.kind != ')') {
+      ts.putback(t);
       throw runtime_error { "')' expected" };
     }
     return d;

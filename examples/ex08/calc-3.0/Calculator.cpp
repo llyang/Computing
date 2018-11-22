@@ -49,12 +49,14 @@ double Calculator::declaration()
 {
   Token t { ts.get() };
   if (t.kind != name) {
+    ts.putback(t);
     throw runtime_error { "name expected in declaration" };
   }
   string var_name { t.name };
 
   Token t2 { ts.get() };
   if (t2.kind != '=') {
+    ts.putback(t2);
     throw runtime_error { "= missing in declaration of " + var_name };
   }
 
@@ -137,6 +139,7 @@ double Calculator::primary()
     double d { expression() };
     t = ts.get();
     if (t.kind != ')') {
+      ts.putback(t);
       throw runtime_error { "')' expected" };
     }
     return d;
