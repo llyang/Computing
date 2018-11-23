@@ -54,9 +54,9 @@ double Calculator::declaration()
   }
   string var_name { t.name };
 
-  Token t2 { ts.get() };
-  if (t2.kind != '=') {
-    ts.putback(t2);
+  t = ts.get();
+  if (t.kind != '=') {
+    ts.putback(t);
     throw runtime_error { "= missing in declaration of " + var_name };
   }
 
@@ -68,13 +68,19 @@ double Calculator::declaration()
 double Calculator::statement()
 {
   Token t { ts.get() };
-  switch (t.kind) {
-  case let:
-    return declaration();
-  default:
+  double r { 0 };
+  if (t.kind == let) {
+    r = declaration();
+  } else {
     ts.putback(t);
-    return expression();
+    r = expression();
   }
+
+  t = ts.get();
+  if (t.kind != print)
+    throw runtime_error { "illegal statement" };
+
+  return r;
 }
 
 // return the value of the next expression
