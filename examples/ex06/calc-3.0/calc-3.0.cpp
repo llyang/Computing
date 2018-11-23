@@ -11,14 +11,17 @@ The grammar for input is:
           Calculation Statement
 
         Statement:
-          Declaration
-          Expression
+          Declaration Print
+          Expression Print
 
         Print:
           ;
 
         Quit:
           q
+
+        Declaration:
+          "let" Name '=' Expression
 
         Expression:
           Term
@@ -36,6 +39,7 @@ The grammar for input is:
           ( Expression )
           - Primary
           + Primary
+          Name
 
         Number:
           floating-point-literal
@@ -165,9 +169,9 @@ double declaration()
   }
   string var_name { t.name };
 
-  Token t2 { ts.get() };
-  if (t2.kind != '=') {
-    ts.putback(t2);
+  t = ts.get();
+  if (t.kind != '=') {
+    ts.putback(t);
     throw runtime_error { "= missing in declaration of " + var_name };
   }
 
@@ -179,13 +183,19 @@ double declaration()
 double statement()
 {
   Token t { ts.get() };
-  switch (t.kind) {
-  case let:
-    return declaration();
-  default:
+  double r { 0 };
+  if (t.kind == let) {
+    r = declaration();
+  } else {
     ts.putback(t);
-    return expression();
+    r = expression();
   }
+
+  t = ts.get();
+  if (t.kind != print)
+    throw runtime_error { "illegal statement" };
+
+  return r;
 }
 
 // return the value of the next expression
