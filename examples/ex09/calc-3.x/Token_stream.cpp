@@ -27,6 +27,9 @@ Token Token_stream::get()
   char ch { ' ' };
   ist >> ch;
 
+  if (!ist)
+    return Token { quit };
+
   switch (ch) {
   case print:
   case quit:
@@ -53,6 +56,10 @@ Token Token_stream::get()
     ist.putback(ch);
     double val { 0 };
     ist >> val;
+    if (!ist) {
+      ist.clear();
+      throw runtime_error { "illegal floating point number" };
+    }
     return Token { number, val };
   }
   default:
