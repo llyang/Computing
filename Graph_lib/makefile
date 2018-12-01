@@ -17,7 +17,7 @@ GRAPHINC = GUI.h Graph.h Point.h Simple_window.h Window.h fltk.h Vector_ref.h
 
 .PRECIOUS: %.o
 
-%.exe: %.cpp $(GRAPHLIB) $(GRAPHINC)
+%.exe: %.o $(GRAPHLIB) $(GRAPHINC)
 	$(CXX) $(CXXFLAGS) -o $@ $< $(GRAPHLIB) $(LDFLAGS)
 
 %.o: %.cpp $(GRAPHINC)
