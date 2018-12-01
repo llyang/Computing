@@ -50,4 +50,5 @@ obj
 
 # macOS
 .DS_Store
+*.dSYM
 
