@@ -57,7 +57,7 @@ struct Button : Widget {
       : Widget { xy, ww, hh, s, cb }
   {
   }
-  void attach(Window& win);
+  void attach(Window& win) override;
   void set_label(const std::string& s)
   {
     label = s;
@@ -73,7 +73,7 @@ struct In_box : Widget {
   }
   int get_int();
   std::string get_string();
-  void attach(Window& win);
+  void attach(Window& win) override;
 };
 
 struct Out_box : Widget {
@@ -83,7 +83,7 @@ struct Out_box : Widget {
   }
   void put(int);
   void put(const std::string&);
-  void attach(Window& win);
+  void attach(Window& win) override;
 };
 
 } // namespace Graph_lib

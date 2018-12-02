@@ -232,7 +232,7 @@ public:
     add(x);
   }
 
-  void draw_lines() const;
+  void draw_lines() const override;
 
   int height() const { return h; }
   int width() const { return w; }
@@ -245,12 +245,12 @@ private:
 struct Open_polyline : Shape { // open sequence of lines
   using Shape::Shape;
   void add(Point p) { Shape::add(p); }
-  void draw_lines() const;
+  void draw_lines() const override;
 };
 
 struct Closed_polyline : Open_polyline { // closed sequence of lines
   using Open_polyline::Open_polyline;
-  void draw_lines() const;
+  void draw_lines() const override;
 };
 
 struct Lines : Shape { // indepentdent lines
@@ -264,7 +264,7 @@ struct Lines : Shape { // indepentdent lines
     }
   }
 
-  void draw_lines() const;
+  void draw_lines() const override;
   void add(Point p1, Point p2)
   {
     Shape::add(p1);
@@ -283,7 +283,7 @@ public:
     add(x);
   }
 
-  void draw_lines() const;
+  void draw_lines() const override;
 
   void set_label(const std::string& s) { lab = s; }
   std::string label() const { return lab; }
@@ -311,7 +311,7 @@ public:
     add(Point { p.x - r, p.y - r });
   }
 
-  void draw_lines() const;
+  void draw_lines() const override;
 
   Point center() const { return { point(0).x + r, point(0).y + r }; }
 
@@ -332,7 +332,7 @@ public:
     add(Point { p.x - ww, p.y - hh });
   }
 
-  void draw_lines() const;
+  void draw_lines() const override;
 
   Point center() const { return { point(0).x + w, point(0).y + h }; }
   Point focus1() const
@@ -362,7 +362,7 @@ public:
       : mark { m }
   {
   }
-  void draw_lines() const;
+  void draw_lines() const override;
 
 private:
   std::string mark;
@@ -411,7 +411,7 @@ public:
   Image(Point xy, std::string s, Suffix::Encoding e = Suffix::none);
   ~Image() { delete p; }
 
-  void draw_lines() const;
+  void draw_lines() const override;
 
   void set_mask(Point xy, int ww, int hh)
   {
@@ -421,7 +421,7 @@ public:
     cy = xy.y;
   }
 
-  void move(int dx, int dy)
+  void move(int dx, int dy) override
   {
     Shape::move(dx, dy);
     p->draw(point(0).x, point(0).y);
@@ -441,7 +441,7 @@ private:
 struct Polygon : Closed_polyline {
   using Closed_polyline::Closed_polyline;
   void add(Point p);
-  void draw_lines() const;
+  void draw_lines() const override;
 };
 
 } // namespace Graph_lib
