@@ -15,7 +15,7 @@ namespace Graph_lib {
 void Shape::draw_lines() const
 {
   if (color().visibility() && 1 < points.size()) // draw sole pixel?
-    for (unsigned int i = 1; i < points.size(); ++i)
+    for (auto i = 1; i < points.size(); ++i)
       fl_line(points[i - 1].x, points[i - 1].y, points[i].x, points[i].y);
 }
 
@@ -32,9 +32,9 @@ void Shape::draw() const
 
 void Shape::move(int dx, int dy)
 {
-  for (unsigned int i = 0; i < points.size(); ++i) {
-    points[i].x += dx;
-    points[i].y += dy;
+  for (auto& p : points) {
+    p.x += dx;
+    p.y += dy;
   }
 }
 
@@ -169,7 +169,7 @@ Suffix::Encoding get_encoding(const string& s)
 {
   static int x { init_suffix_map() };
 
-  string::const_iterator p { find(s.begin(), s.end(), '.') };
+  auto p { find(s.begin(), s.end(), '.') };
   if (p == s.end())
     return Suffix::none; // no suffix
 
@@ -190,6 +190,7 @@ Image::Image(Point xy, string s, Suffix::Encoding e)
     : w { 0 }
     , h { 0 }
     , fn { xy, "" }
+    , p { nullptr }
 {
 
   add(xy);
@@ -264,8 +265,7 @@ inline double line_intersect(Point p1, Point p2, Point p3, Point p4,
 // intersection between two line segments
 // returns true if the two segments intersect,
 // in which case intersection is set to the point of intersection
-bool line_segment_intersect(Point p1, Point p2, Point p3, Point p4,
-    Point& intersection)
+bool line_segment_intersect(Point p1, Point p2, Point p3, Point p4, Point& intersection)
 {
   bool parallel;
   double u { line_intersect(p1, p2, p3, p4, parallel) };
@@ -294,8 +294,7 @@ void Polygon::add(Point p)
   for (int i = 1; i < np - 1; ++i) {
     // check that new segment doesn't interset an old one
     Point ignore(0, 0);
-    if (line_segment_intersect(point(np - 1), p, point(i - 1), point(i),
-            ignore)) {
+    if (line_segment_intersect(point(np - 1), p, point(i - 1), point(i), ignore)) {
       throw runtime_error { "intersection in polygon" };
     }
   }

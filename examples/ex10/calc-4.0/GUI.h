@@ -10,7 +10,7 @@
 namespace Graph_lib {
 
 // FLTK's required function type for all callbacks
-typedef void (*Callback)(void*, void*);
+using Callback = void (*)(void*, void*);
 
 class Widget {
   // Widget is a handle to a Fl_widget - it is *not* a Fl_widget
@@ -22,34 +22,41 @@ public:
       , height { h }
       , label { s }
       , do_it { cb }
+      , own { nullptr }
+      , pw { nullptr }
   {
   }
 
-  virtual void move(int dx, int dy)
-  {
-    hide();
-    pw->position(loc.x += dx, loc.y += dy);
-    show();
-  }
-  virtual void hide() { pw->hide(); }
-  virtual void show() { pw->show(); }
-  virtual void attach(Window&) = 0; // each Widget define at least one action for a window
+  // This function should NEVER be called directly by users
+  // The users should call Window::attach(Widget&) instead
+  // AND this function should only be called ONCE for each Widget
+  virtual void create_and_attach(Window&) = 0;
 
+  void move(int dx, int dy);
+  void hide();
+  void show();
+  void deactivate();
+  void activate();
+
+  virtual ~Widget()
+  {
+    if (pw)
+      delete pw;
+  }
+
+  // don't copy Widgets
+  Widget(const Widget&) = delete;
+  Widget& operator=(const Widget&) = delete;
+
+protected:
   Point loc;
   int width;
   int height;
   std::string label;
   Callback do_it;
 
-  virtual ~Widget() {}
-
-protected:
   Window* own; // every Widget belongs to a Window
   Fl_Widget* pw;
-
-private:
-  Widget& operator=(const Widget&) = delete; // don't copy Widgets
-  Widget(const Widget&) = delete;
 };
 
 struct Button : Widget {
@@ -57,13 +64,8 @@ struct Button : Widget {
       : Widget { xy, ww, hh, s, cb }
   {
   }
-  void attach(Window& win) override;
-  void set_label(const std::string& s)
-  {
-    label = s;
-    if (pw)
-      pw->label(label.c_str());
-  }
+  void set_label(const std::string& s);
+  void create_and_attach(Window& win) override;
 };
 
 struct In_box : Widget {
@@ -73,7 +75,7 @@ struct In_box : Widget {
   }
   int get_int();
   std::string get_string();
-  void attach(Window& win) override;
+  void create_and_attach(Window& win) override;
 };
 
 struct Out_box : Widget {
@@ -83,7 +85,7 @@ struct Out_box : Widget {
   }
   void put(int);
   void put(const std::string&);
-  void attach(Window& win) override;
+  void create_and_attach(Window& win) override;
 };
 
 } // namespace Graph_lib

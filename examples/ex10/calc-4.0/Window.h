@@ -15,30 +15,23 @@ class Widget;
 
 class Window : public Fl_Window {
 public:
-  Window(int w, int h,
-      const std::string& title); // let the system pick the location
-  Window(Point xy, int w, int h,
-      const std::string& title); // top left corner in xy
+  Window(int w, int h, const std::string& title); // let the system pick the location
+  Window(Point xy, int w, int h, const std::string& title); // top left corner in xy
   virtual ~Window() {}
 
   int x_max() const { return w; }
   int y_max() const { return h; }
 
-  void resize(int ww, int hh)
-  {
-    w = ww;
-    h = hh;
-    size(ww, hh);
-  }
+  void resize(int ww, int hh);
 
   void set_label(const std::string& s) { label(s.c_str()); }
 
-  void attach(Shape& s);
+  // create and attach widget
+  // this function should only be called ONCE for each widget
   void attach(Widget& w);
 
+  void attach(Shape& s); // add s to shapes
   void detach(Shape& s); // remove s from shapes
-  void detach(Widget& w); // remove w from window (deactivate callbacks)
-
   void put_on_top(Shape& p); // put p on top of other shapes
 
 protected:
