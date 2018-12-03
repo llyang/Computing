@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <string>
 
 #include "GUI.h"
@@ -32,45 +33,45 @@ void Window::init()
 
 //----------------------------------------------------
 
+void Window::resize(int ww, int hh)
+{
+  w = ww;
+  h = hh;
+  size(ww, hh);
+}
+
 void Window::draw()
 {
   Fl_Window::draw();
-  for (unsigned int i = 0; i < shapes.size(); ++i)
-    shapes[i]->draw();
+  for (auto shape : shapes)
+    shape->draw();
 }
 
 void Window::attach(Widget& w)
 {
   begin(); // FTLK: begin attaching new Fl_Widgets to this window
-  w.attach(*this); // let the Widget create its Fl_Widget
+  w.create_and_attach(*this); // let the Widget create its Fl_Widget
   end(); // FTLK: stop attaching new Fl_Widgets to this window
 }
 
-void Window::detach(Widget& b) { b.hide(); }
-
-void Window::attach(Shape& s) { shapes.push_back(&s); }
+void Window::attach(Shape& s)
+{
+  // each shape should only be attached once
+  detach(s);
+  shapes.push_back(&s);
+}
 
 void Window::detach(Shape& s)
 {
-  // guess last attached will be first released
-  for (unsigned int i = shapes.size(); 0 < i; --i) {
-    if (shapes[i - 1] == &s) {
-      shapes.erase(shapes.begin() + (i - 1));
-    }
+  auto it { std::find(shapes.begin(), shapes.end(), &s) };
+  if (it != shapes.end()) {
+    shapes.erase(it);
   }
 }
 
-void Window::put_on_top(Shape& p)
+void Window::put_on_top(Shape& s)
 {
-  for (int i = 0; i < shapes.size(); ++i) {
-    if (&p == shapes[i]) {
-      for (++i; i < shapes.size(); ++i) {
-        shapes[i - 1] = shapes[i];
-      }
-      shapes[shapes.size() - 1] = &p;
-      return;
-    }
-  }
+  attach(s);
 }
 
 int gui_main() { return Fl::run(); }

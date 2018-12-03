@@ -409,7 +409,11 @@ Suffix::Encoding get_encoding(const std::string& s);
 class Image : public Shape {
 public:
   Image(Point xy, std::string s, Suffix::Encoding e = Suffix::none);
-  ~Image() { delete p; }
+  ~Image()
+  {
+    if (p)
+      delete p;
+  }
 
   void draw_lines() const override;
 
@@ -428,8 +432,7 @@ public:
   }
 
 private:
-  int w, h, cx,
-      cy; // define "masking box" within image relative to position (cx,cy)
+  int w, h, cx, cy; // define "masking box" within image relative to position (cx,cy)
   Fl_Image* p;
   Text fn;
 };

@@ -48,8 +48,7 @@ private:
 
 My_window::My_window(Point xy, int w, int h, const string& title)
     : Graph_lib::Window { xy, w, h, title }
-    , quit_button { Point { x_max() - 70, 0 },
-      70, 20, "Quit", cb_quit }
+    , quit_button { Point { x_max() - 70, 0 }, 70, 20, "Quit", cb_quit }
     , next_button { Point { x_max() - 70, 20 }, 70, 20, "Next", cb_next }
     , center_x { 300 }
     , center_y { 200 }

@@ -9,6 +9,8 @@ using Graph_lib::Color;
 using Graph_lib::Line_style;
 using Graph_lib::Point;
 
+void cb_funny(void*, void* pw);
+
 int main()
 {
   Simple_window win { Point { 100, 100 }, 600, 400, "Some shapes" };
@@ -53,5 +55,45 @@ int main()
   Graph_lib::Text sizes { Point { 100, 20 }, oss.str() };
   win.attach(sizes);
 
+  win.wait_for_next();
+
+  ii.move(-100, -100);
+
+  win.wait_for_next();
+
+  win.put_on_top(rect);
+
+  win.wait_for_next();
+
+  win.put_on_top(poly);
+
+  win.wait_for_next();
+
+  win.detach(ii);
+
+  win.wait_for_next();
+
+  win.attach(ii);
+
+  win.wait_for_next();
+
+  Graph_lib::Button button { Point { 100, 100 }, 70, 20, "Funny", cb_funny };
+
+  win.attach(button);
+
+  win.wait_for_next();
+
+  button.hide();
+
+  win.wait_for_next();
+
+  button.show();
+
+  win.wait_for_next();
+
   return Graph_lib::gui_main();
+}
+
+void cb_funny(void*, void* pw)
+{
 }

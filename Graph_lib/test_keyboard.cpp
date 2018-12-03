@@ -38,8 +38,7 @@ private:
 
 My_window::My_window(Point xy, int w, int h, const string& title)
     : Graph_lib::Window { xy, w, h, title }
-    , quit_button { Point { x_max() - 70, 0 },
-      70, 20, "Quit", cb_quit }
+    , quit_button { Point { x_max() - 70, 0 }, 70, 20, "Quit", cb_quit }
     , x { x_max() / 2 }
     , y { y_max() / 2 }
     , ball { Point { x, y }, 5 }

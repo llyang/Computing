@@ -99,11 +99,10 @@ private:
 
 My_window::My_window(Point xy, int w, int h, const string& title)
     : Graph_lib::Window { xy, w, h, title }
-    , quit_button {
-      Point { x_max() - 70, 0 }, 70, 20, "Quit",
-      [](void*, void* pw) { static_cast<My_window*>(pw)->quit(); }
-    }
-    , stop_button { Point { x_max() - 70, 20 }, 70, 20, "Stop", [](void*, void* pw) { static_cast<My_window*>(pw)->stop(); } }
+    , quit_button { Point { x_max() - 70, 0 }, 70, 20, "Quit",
+      [](void*, void* pw) { static_cast<My_window*>(pw)->quit(); } }
+    , stop_button { Point { x_max() - 70, 20 }, 70, 20, "Stop",
+      [](void*, void* pw) { static_cast<My_window*>(pw)->stop(); } }
     , ball { 100, 0, 0.1 }
     , circ { Point { 400, 200 }, 5 }
     , started { true }
