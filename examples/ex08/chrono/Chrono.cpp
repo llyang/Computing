@@ -25,7 +25,7 @@ ostream& operator<<(ostream& os, Day d)
   return os << day_tbl[int(d)];
 }
 
-Month operator++(Month& m)
+Month& operator++(Month& m)
 {
   m = (m == Month::Dec) ? Month::Jan : Month(int(m) + 1);
   return m;

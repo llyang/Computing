@@ -33,7 +33,7 @@ enum class Day {
 std::ostream& operator<<(std::ostream& os, Month m);
 std::ostream& operator<<(std::ostream& os, Day d);
 
-Month operator++(Month& m);
+Month& operator++(Month& m);
 
 class Date {
 public:
