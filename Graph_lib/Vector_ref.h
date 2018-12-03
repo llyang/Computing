@@ -16,8 +16,8 @@ public:
   }
   ~Vector_ref()
   {
-    for (int i = 0; i < owned.size(); ++i)
-      delete owned[i];
+    for (auto p : owned)
+      delete p;
   }
 
   void push_back(T& s) { v.push_back(&s); }
