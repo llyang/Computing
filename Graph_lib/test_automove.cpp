@@ -42,11 +42,10 @@ private:
 pair<double, double> Moving_ball::move()
 {
   phi += dphi;
-  double dx { new_x() - x };
-  double dy { new_y() - y };
+  pair<double, double> dr { new_x() - x, new_y() - y };
   x = new_x();
   y = new_y();
-  return pair<double, double> { dx, dy };
+  return dr;
 }
 
 ////////////////////////////////////////
@@ -110,8 +109,8 @@ My_window::My_window(Point xy, int w, int h, const string& title)
   attach(quit_button);
   attach(stop_button);
   circ.set_style(Line_style { Line_style::solid, 4 });
-  circ.set_fill_color(Color::red);
-  circ.set_color(Color::red);
+  circ.set_fill_color(Color { Color::red });
+  circ.set_color(Color { Color::red });
   attach(circ);
   manage_timeout();
 }

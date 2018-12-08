@@ -19,20 +19,20 @@ int main()
   poly.add(Point { 300, 200 });
   poly.add(Point { 350, 100 });
   poly.add(Point { 400, 200 });
-  poly.set_color(Color::red);
+  poly.set_color(Color { Color::red });
   poly.set_style(Line_style { Line_style::dash, 4 });
   win.attach(poly);
 
   Graph_lib::Rectangle rect { Point { 200, 200 }, 100, 50 };
-  rect.set_color(Color::blue);
+  rect.set_color(Color { Color::blue });
   rect.set_style(Line_style { Line_style::solid, 4 });
-  rect.set_fill_color(Color::green);
+  rect.set_fill_color(Color { Color::green });
   win.attach(rect);
 
   Graph_lib::Text t { Point { 150, 150 }, "Hello, world!" };
-  t.set_font(Graph_lib::Font::times_bold);
+  t.set_font(Graph_lib::Font { Graph_lib::Font::times_bold });
   t.set_font_size(20);
-  t.set_color(Color::dark_red);
+  t.set_color(Color { Color::dark_red });
   win.attach(t);
 
   win.wait_for_next();

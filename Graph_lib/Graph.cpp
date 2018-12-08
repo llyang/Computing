@@ -15,7 +15,7 @@ namespace Graph_lib {
 void Shape::draw_lines() const
 {
   if (color().visibility() && 1 < points.size()) // draw sole pixel?
-    for (auto i = 1; i < points.size(); ++i)
+    for (unsigned i = 1; i < points.size(); ++i)
       fl_line(points[i - 1].x, points[i - 1].y, points[i].x, points[i].y);
 }
 
@@ -147,10 +147,9 @@ void Marked_polyline::draw_lines() const
 
 // Image files
 
-std::map<string, Suffix::Encoding> suffix_map;
-
-int init_suffix_map()
+const std::map<string, Suffix::Encoding>& init_suffix_map()
 {
+  static std::map<string, Suffix::Encoding> suffix_map;
   suffix_map["jpg"] = Suffix::jpg;
   suffix_map["JPG"] = Suffix::jpg;
   suffix_map["jpeg"] = Suffix::jpg;
@@ -161,13 +160,13 @@ int init_suffix_map()
   suffix_map["BMP"] = Suffix::bmp;
   suffix_map["png"] = Suffix::png;
   suffix_map["PNG"] = Suffix::png;
-  return 0;
+  return suffix_map;
 }
 
 Suffix::Encoding get_encoding(const string& s)
 // try to deduce type from file name using a lookup table
 {
-  static int x { init_suffix_map() };
+  auto suffix_map { init_suffix_map() };
 
   auto p { find(s.begin(), s.end(), '.') };
   if (p == s.end())

@@ -35,7 +35,7 @@ public:
   enum Transparency { invisible = 0,
     visible = 255 };
 
-  Color(Color_type cc)
+  explicit Color(Color_type cc)
       : c { static_cast<Fl_Color>(cc) }
       , v { visible }
   {
@@ -45,12 +45,12 @@ public:
       , v { vv }
   {
   }
-  Color(int cc)
+  explicit Color(int cc)
       : c { static_cast<Fl_Color>(cc) }
       , v { visible }
   {
   }
-  Color(Transparency vv)
+  explicit Color(Transparency vv)
       : c { Fl_Color {} }
       , v { vv }
   {
@@ -61,8 +61,8 @@ public:
   void set_visibility(Transparency vv) { v = vv; }
 
 private:
-  int v;
   Fl_Color c;
+  int v;
 };
 
 class Line_style {
@@ -75,7 +75,7 @@ public:
     dashdotdot = FL_DASHDOTDOT, // -..-..
   };
 
-  Line_style(Line_style_type ss)
+  explicit Line_style(Line_style_type ss)
       : s { ss }
       , w { 0 }
   {
@@ -85,7 +85,7 @@ public:
       , w { ww }
   {
   }
-  Line_style(int ss)
+  explicit Line_style(int ss)
       : s { ss }
       , w { 0 }
   {
@@ -120,11 +120,11 @@ public:
     zapf_dingbats = FL_ZAPF_DINGBATS
   };
 
-  Font(Font_type ff)
+  explicit Font(Font_type ff)
       : f { ff }
   {
   }
-  Font(int ff)
+  explicit Font(int ff)
       : f { ff }
   {
   }
@@ -142,7 +142,7 @@ public:
       , fcolor { 0 }
   {
   }
-  Fill(Color c)
+  explicit Fill(Color c)
       : no_fill { false }
       , fcolor { c }
   {
@@ -184,7 +184,7 @@ public:
 
 protected:
   Shape() {}
-  Shape(std::initializer_list<Point> lst); // add() the Points to this Shape
+  explicit Shape(std::initializer_list<Point> lst); // add() the Points to this Shape
 
   void add(Point p) { points.push_back(p); }
   void set_point(int i, Point p) { points[i] = p; }
@@ -238,8 +238,8 @@ public:
   int width() const { return w; }
 
 private:
-  int h; // height
   int w; // width
+  int h; // height
 };
 
 struct Open_polyline : Shape { // open sequence of lines
@@ -256,7 +256,7 @@ struct Closed_polyline : Open_polyline { // closed sequence of lines
 struct Lines : Shape { // indepentdent lines
   Lines() {}
 
-  Lines(std::initializer_list<Point> lst)
+  explicit Lines(std::initializer_list<Point> lst)
       : Shape { lst }
   {
     if (lst.size() % 2) {
@@ -358,7 +358,7 @@ private:
 
 class Marked_polyline : public Open_polyline {
 public:
-  Marked_polyline(const std::string& m)
+  explicit Marked_polyline(const std::string& m)
       : mark { m }
   {
   }
@@ -369,7 +369,7 @@ private:
 };
 
 struct Marks : Marked_polyline {
-  Marks(const std::string& m)
+  explicit Marks(const std::string& m)
       : Marked_polyline { m }
   {
     set_color(Color { Color::invisible });
@@ -433,8 +433,8 @@ public:
 
 private:
   int w, h, cx, cy; // define "masking box" within image relative to position (cx,cy)
-  Fl_Image* p;
   Text fn;
+  Fl_Image* p;
 };
 
 ////////////////////////////////////////

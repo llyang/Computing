@@ -9,7 +9,7 @@ template <class T>
 class Vector_ref {
 public:
   Vector_ref() {}
-  Vector_ref(T* t)
+  explicit Vector_ref(T* t)
   {
     if (t)
       push_back(t);
