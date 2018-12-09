@@ -10,6 +10,7 @@ int x { 2 };
 
 class A {
 public:
+  A() {}
   void f()
   {
     cout << "global x: " << ::x << '\n';
