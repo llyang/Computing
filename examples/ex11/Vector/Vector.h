@@ -1,17 +1,26 @@
 #ifndef _VECTOR_H
 #define _VECTOR_H
 
+#include <initializer_list>
+
 class Vector {
 public:
-  explicit Vector(size_t s = 0, double d = 0.0);
-  ~Vector() { delete[] elem; }
+  Vector();
+  explicit Vector(std::size_t s, double d = 0.0);
+  explicit Vector(std::initializer_list<double> lst);
 
-  Vector(std::initializer_list<double> lst);
+  ~Vector()
+  {
+    if (elem)
+      delete[] elem;
+  }
 
-  size_t size() const { return sz; }
+  std::size_t size() const { return sz; }
+  double* data() { return elem; }
+  const double* data() const { return elem; }
 
-  double& operator[](size_t i) { return elem[i]; }
-  double operator[](size_t i) const { return elem[i]; }
+  double& operator[](std::size_t i) { return elem[i]; }
+  double operator[](std::size_t i) const { return elem[i]; }
 
   Vector(const Vector& v);
   Vector& operator=(const Vector& v);
@@ -20,7 +29,7 @@ public:
   Vector& operator=(Vector&& v);
 
 private:
-  size_t sz;
+  std::size_t sz;
   double* elem;
 };
 
