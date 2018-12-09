@@ -22,6 +22,8 @@ public:
   int x_max() const { return w; }
   int y_max() const { return h; }
 
+  using Fl_Window::resize; // resize(int x, int y, int w, int h);
+
   void resize(int ww, int hh);
 
   void set_label(const std::string& s) { label(s.c_str()); }
