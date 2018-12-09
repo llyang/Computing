@@ -35,22 +35,28 @@ public:
   enum Transparency { invisible = 0,
     visible = 255 };
 
-  explicit Color(Color_type cc)
+  // cppcheck-suppress noExplicitConstructor
+  Color(Color_type cc)
       : c { static_cast<Fl_Color>(cc) }
       , v { visible }
   {
   }
+
   Color(Color_type cc, Transparency vv)
       : c { static_cast<Fl_Color>(cc) }
       , v { vv }
   {
   }
-  explicit Color(int cc)
+
+  // cppcheck-suppress noExplicitConstructor
+  Color(int cc)
       : c { static_cast<Fl_Color>(cc) }
       , v { visible }
   {
   }
-  explicit Color(Transparency vv)
+
+  // cppcheck-suppress noExplicitConstructor
+  Color(Transparency vv)
       : c { Fl_Color {} }
       , v { vv }
   {
@@ -75,17 +81,21 @@ public:
     dashdotdot = FL_DASHDOTDOT, // -..-..
   };
 
-  explicit Line_style(Line_style_type ss)
+  // cppcheck-suppress noExplicitConstructor
+  Line_style(Line_style_type ss)
       : s { ss }
       , w { 0 }
   {
   }
+
   Line_style(Line_style_type lst, int ww)
       : s { lst }
       , w { ww }
   {
   }
-  explicit Line_style(int ss)
+
+  // cppcheck-suppress noExplicitConstructor
+  Line_style(int ss)
       : s { ss }
       , w { 0 }
   {
@@ -120,11 +130,14 @@ public:
     zapf_dingbats = FL_ZAPF_DINGBATS
   };
 
-  explicit Font(Font_type ff)
+  // cppcheck-suppress noExplicitConstructor
+  Font(Font_type ff)
       : f { ff }
   {
   }
-  explicit Font(int ff)
+
+  // cppcheck-suppress noExplicitConstructor
+  Font(int ff)
       : f { ff }
   {
   }
@@ -142,7 +155,9 @@ public:
       , fcolor { 0 }
   {
   }
-  explicit Fill(Color c)
+
+  // cppcheck-suppress noExplicitConstructor
+  Fill(Color c)
       : no_fill { false }
       , fcolor { c }
   {
@@ -372,7 +387,7 @@ struct Marks : Marked_polyline {
   explicit Marks(const std::string& m)
       : Marked_polyline { m }
   {
-    set_color(Color { Color::invisible });
+    set_color(Color::invisible);
   }
 };
 

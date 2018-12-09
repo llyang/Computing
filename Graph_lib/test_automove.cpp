@@ -109,8 +109,8 @@ My_window::My_window(Point xy, int w, int h, const string& title)
   attach(quit_button);
   attach(stop_button);
   circ.set_style(Line_style { Line_style::solid, 4 });
-  circ.set_fill_color(Color { Color::red });
-  circ.set_color(Color { Color::red });
+  circ.set_fill_color(Color::red);
+  circ.set_color(Color::red);
   attach(circ);
   manage_timeout();
 }

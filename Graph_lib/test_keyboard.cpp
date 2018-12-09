@@ -45,8 +45,8 @@ My_window::My_window(Point xy, int w, int h, const string& title)
 {
   attach(quit_button);
   ball.set_style(Line_style { Line_style::solid, 4 });
-  ball.set_fill_color(Color { Color::red });
-  ball.set_color(Color { Color::red });
+  ball.set_fill_color(Color::red);
+  ball.set_color(Color::red);
   attach(ball);
 }
 
