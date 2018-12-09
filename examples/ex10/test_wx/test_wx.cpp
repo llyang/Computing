@@ -3,7 +3,7 @@
 
 class BasicDrawPane : public wxPanel {
 public:
-  BasicDrawPane(wxFrame* parent);
+  explicit BasicDrawPane(wxFrame* parent);
 
   void paintEvent(wxPaintEvent& evt);
 
@@ -11,6 +11,13 @@ public:
 };
 
 class MyApp : public wxApp {
+public:
+  MyApp()
+      : frame { nullptr }
+      , drawPane { nullptr }
+  {
+  }
+
 private:
   bool OnInit();
 

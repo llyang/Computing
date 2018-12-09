@@ -7,7 +7,9 @@ using namespace std;
 
 struct myWindow : Fl_Window
 {
-  myWindow(int w, int h, string title) : Fl_Window(w, h, title.c_str()) {
+  myWindow(int w, int h, const string& title)
+      : Fl_Window(w, h, title.c_str())
+  {
     color(FL_WHITE);
     resizable(this);
     show();
