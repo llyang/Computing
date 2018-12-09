@@ -13,8 +13,9 @@ public:
 
   Token() {}
 
-  Token(char ch)
+  explicit Token(char ch)
       : kind { ch }
+      , value { 0.0 }
   {
   }
 
@@ -24,8 +25,9 @@ public:
   {
   }
 
-  Token(char ch, std::string n)
+  Token(char ch, const std::string& n)
       : kind { ch }
+      , value { 0.0 }
       , name { n }
   {
   }
