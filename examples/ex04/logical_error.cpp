@@ -7,7 +7,7 @@ int main()
 {
   vector<double> temps;
 
-  for (double temp; cin >> temp;) {
+  for (double temp = 0; cin >> temp;) {
     temps.push_back(temp);
   }
 

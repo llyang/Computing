@@ -31,9 +31,9 @@ int main()
   try {
     double x { my_sqrt(v.at(i)) };
     cout << "sqrt(v[" << i << "]) = " << x << '\n';
-  } catch (out_of_range) {
+  } catch (out_of_range&) {
     cerr << "out of range: i = " << i << '\n';
-  } catch (my_sqrt_error) {
+  } catch (my_sqrt_error&) {
     cerr << "my_sqrt_error\n";
   }
 }

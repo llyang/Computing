@@ -41,7 +41,7 @@ int main()
         res = val1 / val2;
         break;
       }
-    } catch (out_of_range) {
+    } catch (out_of_range&) {
       cout << "unknown operator: " << operation << '\n';
       return 1;
     }

@@ -14,7 +14,7 @@ int main()
 
   sort(words.begin(), words.end());
 
-  for (int i = 0; i < words.size(); ++i) {
+  for (size_t i = 0; i < words.size(); ++i) {
     if (i == 0 || words[i - 1] != words[i]) {
       cout << words[i] << '\n';
     }

@@ -2,7 +2,6 @@
 #define _TOKEN_H
 
 #include <string>
-
 class Token {
 public:
   char kind;
@@ -11,8 +10,11 @@ public:
 
   Token() {}
 
+  // cppcheck-suppress noExplicitConstructor
+
   Token(char ch)
       : kind { ch }
+      , value { 0 }
   {
   }
 
@@ -22,8 +24,9 @@ public:
   {
   }
 
-  Token(char ch, std::string n)
+  Token(char ch, const std::string& n)
       : kind { ch }
+      , value { 0 }
       , name { n }
   {
   }

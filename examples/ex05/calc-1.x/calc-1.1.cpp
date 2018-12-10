@@ -13,7 +13,7 @@ int main()
     throw runtime_error { "no first operand" };
   }
 
-  for (char op; cin >> op;) {
+  for (char op = ' '; cin >> op;) {
     double rval { 0 };
     if (op != ';') {
       cin >> rval;

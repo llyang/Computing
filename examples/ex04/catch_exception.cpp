@@ -22,7 +22,7 @@ int some_function(int x)
 
 int main()
 {
-  for (int x; cin >> x;) {
+  for (int x = 0; cin >> x;) {
     try {
       int y { some_function(x) };
       cout << y << '\n';

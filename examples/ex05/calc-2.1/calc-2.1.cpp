@@ -20,9 +20,8 @@ using std::runtime_error;
 int main()
 {
   try {
-    double val { 0 };
     while (cin) {
-      val = expression();
+      double val { expression() };
       cout << "= " << val << '\n';
     }
   } catch (exception& e) {

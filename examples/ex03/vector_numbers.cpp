@@ -7,12 +7,13 @@ using namespace std;
 int main()
 {
   vector<double> temps;
-  for (double temp; cin >> temp;) {
+  for (double temp = 0; cin >> temp;) {
     temps.push_back(temp);
   }
 
   double sum { 0 };
   for (double x : temps) {
+    // cppcheck-suppress useStlAlgorithm
     sum += x;
   }
   cout << "Average temperature: " << sum / temps.size() << '\n';

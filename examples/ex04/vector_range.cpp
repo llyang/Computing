@@ -12,7 +12,7 @@ int main()
   try {
     int n { v.at(i) };
     cout << "v[" << i << "] = " << n << '\n';
-  } catch (out_of_range) {
+  } catch (out_of_range&) {
     cout << "out of range: i = " << i << '\n';
   }
 }
