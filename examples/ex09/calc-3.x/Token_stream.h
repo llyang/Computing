@@ -9,7 +9,7 @@ namespace Calc {
 
 class Token_stream {
 public:
-  Token_stream(std::istream& is)
+  explicit Token_stream(std::istream& is)
       : ist { is }
   {
   }

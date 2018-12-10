@@ -13,7 +13,7 @@ void skip_to_int()
 {
   if (cin.fail()) {
     cin.clear();
-    for (char ch; cin >> ch;) {
+    for (char ch = ' '; cin >> ch;) {
       if (isdigit(ch) || ch == '-') {
         cin.unget();
         return;

@@ -7,7 +7,7 @@
 
 class Punct_stream {
 public:
-  Punct_stream(std::istream& is)
+  explicit Punct_stream(std::istream& is)
       : source { is }
       , sensitive { true }
   {

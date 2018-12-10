@@ -10,7 +10,7 @@ namespace Calc {
 
 class Calculator {
 public:
-  Calculator(std::istream& is = std::cin)
+  explicit Calculator(std::istream& is = std::cin)
       : ts { is }
   {
   }
