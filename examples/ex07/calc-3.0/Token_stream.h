@@ -5,9 +5,10 @@
 
 namespace Calc {
 
+// cppcheck-suppress noConstructor
+
 class Token_stream {
 public:
-  Token_stream() {}
   Token get();
   void putback(Token t);
   void ignore(char c);

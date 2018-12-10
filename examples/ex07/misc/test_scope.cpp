@@ -8,9 +8,10 @@ namespace haha {
 int x { 2 };
 }
 
+// cppcheck-suppress noConstructor
+
 class A {
 public:
-  A() {}
   void f()
   {
     cout << "global x: " << ::x << '\n';
