@@ -13,9 +13,11 @@ public:
 
   Token() {}
 
-  explicit Token(char ch)
+  // cppcheck-suppress noExplicitConstructor
+
+  Token(char ch)
       : kind { ch }
-      , value { 0.0 }
+      , value { 0 }
   {
   }
 
@@ -27,7 +29,7 @@ public:
 
   Token(char ch, const std::string& n)
       : kind { ch }
-      , value { 0.0 }
+      , value { 0 }
       , name { n }
   {
   }
