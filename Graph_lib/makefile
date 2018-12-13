@@ -6,7 +6,7 @@ LDFLAGS = $(shell fltk-config --use-images --ldflags)
 
 .SUFFIXES: .cpp .o
 
-TARGETS = test.exe test_move.exe test_automove.exe test_keyboard.exe test_vector_ref.exe
+TARGETS = test.exe test_move.exe test_automove.exe test_keyboard.exe test_vector_ref.exe test_animation.exe 
 
 default: all
 
