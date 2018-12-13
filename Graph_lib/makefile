@@ -6,7 +6,7 @@ LDFLAGS = $(shell fltk-config --use-images --ldflags)
 
 .SUFFIXES: .cpp .o
 
-TARGETS = test.exe test_move.exe test_automove.exe test_keyboard.exe test_vector_ref.exe test_animation.exe 
+TARGETS = test.exe test_move.exe test_automove.exe test_keyboard.exe test_vector_ref.exe test_animation.exe test_thread.exe
 
 default: all
 
@@ -24,5 +24,5 @@ GRAPHINC = GUI.h Graph.h Point.h Simple_window.h Window.h fltk.h Vector_ref.h
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 clean:
-	rm -rf $(TARGETS) $(GRAPHLIB) *.dSYM
+	rm -rf *.exe *.o *.dSYM
 
