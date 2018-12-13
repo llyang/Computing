@@ -120,9 +120,9 @@ string My_window::get_joke()
   Fl::awake(cb_joke_begin, this);
   std::this_thread::sleep_for(std::chrono::seconds { 10 });
   Fl::awake(cb_joke_end, this);
-  std::random_device rd;
-  std::default_random_engine ran(rd());
-  std::uniform_int_distribution<int> ui(0, jokes.size() - 1);
+  static std::random_device rd;
+  static std::default_random_engine ran(rd());
+  static std::uniform_int_distribution<int> ui(0, jokes.size() - 1);
   return jokes[ui(ran)];
 }
 
@@ -136,9 +136,9 @@ string My_window::get_quiz()
   Fl::awake(cb_quiz_begin, this);
   std::this_thread::sleep_for(std::chrono::seconds { 10 });
   Fl::awake(cb_quiz_end, this);
-  std::random_device rd;
-  std::default_random_engine ran(rd());
-  std::uniform_int_distribution<int> ui(0, quizzes.size() - 1);
+  static std::random_device rd;
+  static std::default_random_engine ran(rd());
+  static std::uniform_int_distribution<int> ui(0, quizzes.size() - 1);
   return quizzes[ui(ran)];
 }
 
