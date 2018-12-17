@@ -27,6 +27,11 @@ public:
   void push_back(double val);
   void push_front(double val);
 
+  List(const List&) = delete;
+  List& operator=(const List&) = delete;
+  List(List&&) = delete;
+  List& operator=(List&&) = delete;
+
 private:
   Link* head;
   Link* tail;
