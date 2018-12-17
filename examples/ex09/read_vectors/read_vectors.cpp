@@ -48,7 +48,7 @@ int main()
 
   while (ifs) {
     vector<int> v { read_vector(ifs, '*') };
-    if (ifs || !v.empty())
+    if (ifs && !v.empty())
       cout << v.size() << '\n';
   }
 
