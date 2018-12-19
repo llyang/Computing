@@ -13,7 +13,7 @@ namespace Graph_lib {
 class Shape; // "forward declare" Shape
 class Widget;
 
-class Window : public Fl_Window {
+class Window : public Fl_Double_Window {
 public:
   Window(int w, int h, const std::string& title); // let the system pick the location
   Window(Point xy, int w, int h, const std::string& title); // top left corner in xy

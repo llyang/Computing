@@ -10,7 +10,7 @@ using std::string;
 namespace Graph_lib {
 
 Window::Window(int ww, int hh, const string& title)
-    : Fl_Window { ww, hh, title.c_str() }
+    : Fl_Double_Window { ww, hh, title.c_str() }
     , w { ww }
     , h { hh }
 {
@@ -18,7 +18,7 @@ Window::Window(int ww, int hh, const string& title)
 }
 
 Window::Window(Point xy, int ww, int hh, const string& title)
-    : Fl_Window { xy.x, xy.y, ww, hh, title.c_str() }
+    : Fl_Double_Window { xy.x, xy.y, ww, hh, title.c_str() }
     , w { ww }
     , h { hh }
 {

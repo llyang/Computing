@@ -105,7 +105,7 @@ void My_window::next()
 
 int main()
 {
-  My_window win { Point { 100, 100 }, 600, 400, "Move a ball" };
+  My_window win { Point { 100, 100 }, 600, 400, "animation" };
 
   return Graph_lib::gui_main();
 }
