@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "GUI.h"
 #include "Graph.h"
@@ -7,6 +8,7 @@
 #include "Window.h"
 
 using std::string;
+using std::vector;
 
 using Graph_lib::Color;
 using Graph_lib::Line_style;
@@ -24,6 +26,7 @@ private:
   Graph_lib::Button stop_button;
 
   Graph_lib::Vector_ref<Graph_lib::Rectangle> vr;
+  Graph_lib::Vector_ref<Graph_lib::Text> vt;
 
   bool started;
 
@@ -73,6 +76,15 @@ void My_window::create_grid()
       attach(vr[vr.size() - 1]);
     }
   }
+  const vector<string> vs { "haha", "hehe", "hihi", "hoho", "huhu" };
+  for (auto& s : vs) {
+    vt.push_back(new Graph_lib::Text { Point { 400, 50 + vt.size() * 30 }, s });
+    Graph_lib::Text& t { vt[vt.size() - 1] };
+    t.set_font(Graph_lib::Font::times_bold);
+    t.set_font_size(20);
+    t.set_color(Color::dark_red);
+    attach(t);
+  }
 }
 
 My_window::My_window(Point xy, int w, int h, const string& title)
@@ -98,6 +110,13 @@ void My_window::next()
     vr[i].set_fill_color(vr[i - 1].fill_color());
   }
   vr[0].set_fill_color(c);
+
+  string s { vt[vt.size() - 1].label() };
+  for (int i = vt.size() - 1; i > 0; --i) {
+    vt[i].set_label(vt[i - 1].label());
+  }
+  vt[0].set_label(s);
+
   redraw();
 }
 
