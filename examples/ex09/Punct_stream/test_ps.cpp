@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -12,12 +13,15 @@ using std::vector;
 
 int main()
 {
-  Punct_stream ps { cin };
+  std::ifstream ifs { "input.txt" };
+  Punct_stream ps { ifs };
   ps.whitespace(";:,.?!()\"{}<>/&$@#%^*|~");
   ps.case_sensitive(false);
 
   vector<string> vs;
   for (string word; ps >> word;) {
+    if (!ps) {
+    }
     vs.push_back(word);
   }
 
