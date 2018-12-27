@@ -52,7 +52,6 @@ Punct_stream& Punct_stream::operator>>(int& n)
 bool Punct_stream::is_whitespace(char c)
 {
   for (char w : white) {
-    // cppcheck-suppress useStlAlgorithm
     if (c == w)
       return true;
   }

@@ -13,8 +13,6 @@ public:
 
   Token() {}
 
-  // cppcheck-suppress noExplicitConstructor
-
   Token(char ch)
       : kind { ch }
       , value { 0 }
@@ -46,4 +44,3 @@ const std::string declkey { "let" };
 }
 
 #endif
-
