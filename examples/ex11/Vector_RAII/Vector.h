@@ -28,7 +28,7 @@ class Vector : private Vector_base {
 public:
   Vector();
   explicit Vector(std::size_t s, double d = 0.0);
-  explicit Vector(std::initializer_list<double> lst);
+  Vector(std::initializer_list<double> lst);
 
   std::size_t size() const { return sz; }
   double* data() { return elem; }
