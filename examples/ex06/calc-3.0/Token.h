@@ -10,8 +10,6 @@ public:
 
   Token() {}
 
-  // cppcheck-suppress noExplicitConstructor
-
   Token(char ch)
       : kind { ch }
       , value { 0 }

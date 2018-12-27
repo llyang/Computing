@@ -122,7 +122,7 @@ void calculate()
 
 ////////////////////////////////////////////////////////////////////////////////
 
-double get_value(string var)
+double get_value(const string& var)
 {
   try {
     return var_table.at(var);
@@ -131,7 +131,7 @@ double get_value(string var)
   }
 }
 
-void set_value(string var, double val)
+void set_value(const string& var, double val)
 {
   try {
     var_table.at(var) = val;
@@ -140,7 +140,7 @@ void set_value(string var, double val)
   }
 }
 
-bool is_declared(string var)
+bool is_declared(const string& var)
 {
   if (var_table.count(var) > 0) {
     return true;
@@ -149,7 +149,7 @@ bool is_declared(string var)
   }
 }
 
-double define_name(string var, double val)
+double define_name(const string& var, double val)
 {
   if (is_declared(var)) {
     throw runtime_error { "variable " + var + " is already declared" };
@@ -278,4 +278,3 @@ double primary()
     throw runtime_error { "primary expected" };
   }
 }
-

@@ -95,4 +95,3 @@ void Token_stream::ignore(char c)
       return;
   }
 }
-

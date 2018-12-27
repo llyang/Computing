@@ -105,4 +105,3 @@ double primary()
     throw runtime_error { "primary expected" };
   }
 }
-
