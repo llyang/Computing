@@ -42,6 +42,10 @@ obj
 *.depend
 *.layout
 
+# CLion
+.idea
+cmake-build-*
+
 # Vim
 *.swp
 
