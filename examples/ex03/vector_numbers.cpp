@@ -13,7 +13,6 @@ int main()
 
   double sum { 0 };
   for (double x : temps) {
-    // cppcheck-suppress useStlAlgorithm
     sum += x;
   }
   cout << "Average temperature: " << sum / temps.size() << '\n';
