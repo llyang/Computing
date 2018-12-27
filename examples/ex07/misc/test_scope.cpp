@@ -8,8 +8,6 @@ namespace haha {
 int x { 2 };
 }
 
-// cppcheck-suppress noConstructor
-
 class A {
 public:
   void f()

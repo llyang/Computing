@@ -11,7 +11,7 @@ using std::string;
 
 namespace Calc {
 
-double Var_table::get_value(string var)
+double Var_table::get_value(const string& var)
 {
   try {
     return table.at(var);
@@ -20,7 +20,7 @@ double Var_table::get_value(string var)
   }
 }
 
-void Var_table::set_value(string var, double val)
+void Var_table::set_value(const string& var, double val)
 {
   try {
     table.at(var) = val;
@@ -29,7 +29,7 @@ void Var_table::set_value(string var, double val)
   }
 }
 
-bool Var_table::is_declared(string var)
+bool Var_table::is_declared(const string& var)
 {
   if (table.count(var) > 0) {
     return true;
@@ -38,7 +38,7 @@ bool Var_table::is_declared(string var)
   }
 }
 
-double Var_table::define_name(string var, double val)
+double Var_table::define_name(const string& var, double val)
 {
   if (is_declared(var)) {
     throw runtime_error { "variable " + var + " is already declared" };

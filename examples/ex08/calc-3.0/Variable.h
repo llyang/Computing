@@ -8,13 +8,13 @@ namespace Calc {
 
 class Var_table {
 public:
-  double get_value(std::string);
-  void set_value(std::string, double);
-  double define_name(std::string, double);
+  double get_value(const std::string&);
+  void set_value(const std::string&, double);
+  double define_name(const std::string&, double);
 
 private:
   std::map<std::string, double> table;
-  bool is_declared(std::string);
+  bool is_declared(const std::string&);
 };
 }
 
