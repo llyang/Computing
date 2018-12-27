@@ -3,8 +3,6 @@
 
 #include "Token.h"
 
-// cppcheck-suppress noConstructor
-
 class Token_stream {
 public:
   Token get();
