@@ -3,9 +3,9 @@
 
 #include "Calculator.h"
 
-#include "GUI.h"
-#include "Graph.h"
-#include "Window.h"
+#include "Graph_lib/GUI.h"
+#include "Graph_lib/Graph.h"
+#include "Graph_lib/Window.h"
 
 using std::exception;
 using std::istringstream;
@@ -78,4 +78,3 @@ int main()
 
   return Graph_lib::gui_main();
 }
-
