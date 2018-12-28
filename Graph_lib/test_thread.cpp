@@ -6,14 +6,16 @@
 #include <thread>
 #include <vector>
 
-#include "GUI.h"
-#include "Graph.h"
-#include "Window.h"
+#include "Graph_lib/GUI.h"
+#include "Graph_lib/Graph.h"
+#include "Graph_lib/Window.h"
 
 using std::string;
 
 using Graph_lib::Color;
+using Graph_lib::Font;
 using Graph_lib::Point;
+using Graph_lib::Text_style;
 
 class My_window : public Graph_lib::Window {
 
@@ -100,14 +102,10 @@ My_window::My_window(Point xy, int w, int h, const string& title)
 {
   attach(quit_button);
   attach(joke_button);
-  joke_text.set_font(Graph_lib::Font::times_bold);
-  joke_text.set_font_size(20);
-  joke_text.set_color(Color::dark_red);
+  joke_text.set_text_style(Text_style { 20, Color::dark_red, Font::times_bold });
   attach(joke_text);
   attach(quiz_button);
-  quiz_text.set_font(Graph_lib::Font::times_bold);
-  quiz_text.set_font_size(20);
-  quiz_text.set_color(Color::dark_red);
+  quiz_text.set_text_style(Text_style { 20, Color::dark_red, Font::times_bold });
   attach(quiz_text);
 }
 

@@ -49,80 +49,66 @@ void Widget::activate()
   pw->activate();
 }
 
+void Widget::attach(Window& win)
+{
+  if (own) { // already attached
+    if (own == &win) { // the same window, just show
+      show();
+      activate();
+      return;
+    } else {
+      throw std::runtime_error { "Widget already attached to a different window" };
+    }
+  } else {
+    create_and_attach(win);
+  }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 
-void Button::set_label(const string& s)
+void Button::set_label(string s)
 {
-  label = s;
+  label = std::move(s);
   if (pw)
     pw->label(label.c_str());
 }
 
 void Button::create_and_attach(Window& win)
 {
-  if (pw) {
-    throw std::runtime_error { "Widget already created" };
-  }
   pw = new Fl_Button { loc.x, loc.y, width, height, label.c_str() };
+  pw->labelsize(label_size_);
   pw->callback(reinterpret_cast<Fl_Callback*>(do_it), &win); // pass the window
   own = &win;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-int In_box::get_int()
-{
-  if (!pw) {
-    throw std::runtime_error { "Widget not created yet" };
-  }
-  const char* p = static_cast<Fl_Input*>(pw)->value();
-  if (!isdigit(p[0]))
-    return -999999;
-  return atoi(p);
-}
-
 string In_box::get_string()
 {
   if (!pw) {
     throw std::runtime_error { "Widget not created yet" };
   }
-  return string { static_cast<Fl_Input*>(pw)->value() };
+  return string { dynamic_cast<Fl_Input*>(pw)->value() };
 }
 
 void In_box::create_and_attach(Window& win)
 {
-  if (pw) {
-    throw std::runtime_error { "Widget already created" };
-  }
   pw = new Fl_Input { loc.x, loc.y, width, height, label.c_str() };
   own = &win;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-void Out_box::put(int i)
-{
-  if (!pw) {
-    throw std::runtime_error { "Widget not created yet" };
-  }
-  std::stringstream ss;
-  ss << i;
-  static_cast<Fl_Output*>(pw)->value(ss.str().c_str());
-}
-
 void Out_box::put(const string& s)
 {
   if (!pw) {
     throw std::runtime_error { "Widget not created yet" };
   }
-  static_cast<Fl_Output*>(pw)->value(s.c_str());
+  dynamic_cast<Fl_Output*>(pw)->value(s.c_str());
 }
 
 void Out_box::create_and_attach(Window& win)
 {
-  if (pw) {
-    throw std::runtime_error { "Widget already created" };
-  }
   pw = new Fl_Output { loc.x, loc.y, width, height, label.c_str() };
   own = &win;
 }

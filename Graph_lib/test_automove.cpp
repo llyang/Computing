@@ -1,11 +1,9 @@
 #include <cmath>
-#include <utility>
 
-#include "GUI.h"
-#include "Graph.h"
-#include "Window.h"
+#include "Graph_lib/GUI.h"
+#include "Graph_lib/Graph.h"
+#include "Graph_lib/Window.h"
 
-using std::pair;
 using std::string;
 
 using Graph_lib::Color;
@@ -14,39 +12,49 @@ using Graph_lib::Point;
 
 ////////////////////////////////////////
 
-class Moving_ball {
+constexpr int fps { 15 };
+constexpr double ball_speed { -0.1 };
+constexpr int rotation_radius { 100 };
+const Point rotation_center { 300, 200 };
+
+class Ball {
 
 public:
-  Moving_ball(int r, double phi0, double dphi0)
-      : radius { r }
-      , phi { phi0 }
-      , dphi { dphi0 }
-      , x { new_x() }
-      , y { new_y() }
+  Ball()
+      : c { Point { rotation_center.x + rotation_radius, rotation_center.y }, 10 }
+      , phi { 0 }
+      , speed { ball_speed }
   {
+    c.set_line_style(Line_style { 1, Color::red });
+    c.set_fill_color(Color::red);
   }
 
-  pair<double, double> move();
+  const Graph_lib::Shape* get_shape() const { return &c; }
+
+  void start()
+  {
+    speed = ball_speed;
+  }
+
+  void stop()
+  {
+    speed = 0;
+  }
+
+  void move()
+  {
+    phi += speed;
+    int new_x { static_cast<int>(rotation_center.x + rotation_radius * cos(phi)) };
+    int new_y { static_cast<int>(rotation_center.y + rotation_radius * sin(phi)) };
+    Point center { c.center() };
+    c.move(new_x - center.x, new_y - center.y);
+  }
 
 private:
-  int radius;
+  Graph_lib::Circle c;
   double phi;
-  double dphi;
-  double x;
-  double y;
-
-  double new_x() const { return radius * cos(phi); }
-  double new_y() const { return radius * sin(phi); }
+  double speed;
 };
-
-pair<double, double> Moving_ball::move()
-{
-  phi += dphi;
-  pair<double, double> dr { new_x() - x, new_y() - y };
-  x = new_x();
-  y = new_y();
-  return dr;
-}
 
 ////////////////////////////////////////
 
@@ -58,41 +66,31 @@ public:
 private:
   Graph_lib::Button quit_button;
   Graph_lib::Button stop_button;
-  Moving_ball ball;
   Graph_lib::Circle circ;
+  Ball ball;
   bool started;
-
-  static constexpr double step { 0.1 };
 
   void quit() { hide(); }
 
-  void next();
-
-  void timeout()
+  void loop()
   {
-    next();
-    Fl::repeat_timeout(step, cb_timeout, this);
+    ball.move();
+    redraw();
+    Fl::repeat_timeout(1. / fps, cb_timeout, this);
   }
 
-  static void cb_timeout(void* pw) { static_cast<My_window*>(pw)->timeout(); }
-
-  void manage_timeout()
-  {
-    if (started) {
-      Fl::add_timeout(step, cb_timeout, this);
-    } else {
-      Fl::remove_timeout(cb_timeout, this);
-    }
-  }
+  static void cb_timeout(void* pw) { static_cast<My_window*>(pw)->loop(); }
 
   void stop()
   {
-    if (started)
+    if (started) {
       stop_button.set_label("Start");
-    else
+      ball.stop();
+    } else {
       stop_button.set_label("Stop");
+      ball.start();
+    }
     started = !started;
-    manage_timeout();
   }
 };
 
@@ -102,24 +100,14 @@ My_window::My_window(Point xy, int w, int h, const string& title)
       [](void*, void* pw) { static_cast<My_window*>(pw)->quit(); } }
     , stop_button { Point { x_max() - 70, 20 }, 70, 20, "Stop",
       [](void*, void* pw) { static_cast<My_window*>(pw)->stop(); } }
-    , ball { 100, 0, 0.1 }
-    , circ { Point { 400, 200 }, 5 }
+    , circ { rotation_center, rotation_radius }
     , started { true }
 {
   attach(quit_button);
   attach(stop_button);
-  circ.set_style(Line_style { Line_style::solid, 4 });
-  circ.set_fill_color(Color::red);
-  circ.set_color(Color::red);
   attach(circ);
-  manage_timeout();
-}
-
-void My_window::next()
-{
-  pair<double, double> dxdy { ball.move() };
-  circ.move(dxdy.first, dxdy.second);
-  Fl::redraw();
+  attach(*(ball.get_shape()));
+  Fl::add_timeout(1. / fps, cb_timeout, this);
 }
 
 ////////////////////////////////////////
@@ -130,4 +118,3 @@ int main()
 
   return Graph_lib::gui_main();
 }
-

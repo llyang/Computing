@@ -16,11 +16,11 @@ class Widget {
   // Widget is a handle to a Fl_widget - it is *not* a Fl_widget
   // We try to keep our interface classes at arm's length from FLTK
 public:
-  Widget(Point xy, int w, int h, const std::string& s, Callback cb)
+  Widget(Point xy, int w, int h, std::string s, Callback cb)
       : loc { xy }
       , width { w }
       , height { h }
-      , label { s }
+      , label { std::move(s) }
       , do_it { cb }
       , own { nullptr }
       , pw { nullptr }
@@ -29,8 +29,7 @@ public:
 
   // This function should NEVER be called directly by users
   // The users should call Window::attach(Widget&) instead
-  // AND this function should only be called ONCE for each Widget
-  virtual void create_and_attach(Window&) = 0;
+  virtual void attach(Window&);
 
   void move(int dx, int dy);
   void hide();
@@ -38,11 +37,7 @@ public:
   void deactivate();
   void activate();
 
-  virtual ~Widget()
-  {
-    if (pw)
-      delete pw;
-  }
+  virtual ~Widget() { delete pw; }
 
   // don't copy Widgets
   Widget(const Widget&) = delete;
@@ -57,34 +52,48 @@ protected:
 
   Window* own; // every Widget belongs to a Window
   Fl_Widget* pw;
+
+protected:
+  virtual void create_and_attach(Window&) = 0;
 };
 
 struct Button : Widget {
-  Button(Point xy, int ww, int hh, const std::string& s, Callback cb)
-      : Widget { xy, ww, hh, s, cb }
+  Button(Point xy, int ww, int hh, std::string s, Callback cb, int label_size = 14)
+      : Widget { xy, ww, hh, std::move(s), cb }
+      , label_size_ { label_size }
   {
   }
-  void set_label(const std::string& s);
+
+  void set_label(std::string s);
+
+protected:
   void create_and_attach(Window& win) override;
+
+private:
+  int label_size_;
 };
 
 struct In_box : Widget {
-  In_box(Point xy, int w, int h, const std::string& s)
-      : Widget { xy, w, h, s, 0 }
+  In_box(Point xy, int w, int h, std::string s)
+      : Widget { xy, w, h, std::move(s), nullptr }
   {
   }
-  int get_int();
+
   std::string get_string();
+
+protected:
   void create_and_attach(Window& win) override;
 };
 
 struct Out_box : Widget {
-  Out_box(Point xy, int w, int h, const std::string& s)
-      : Widget { xy, w, h, s, 0 }
+  Out_box(Point xy, int w, int h, std::string s)
+      : Widget { xy, w, h, std::move(s), nullptr }
   {
   }
-  void put(int);
+
   void put(const std::string&);
+
+protected:
   void create_and_attach(Window& win) override;
 };
 

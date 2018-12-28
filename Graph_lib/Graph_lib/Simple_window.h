@@ -9,7 +9,7 @@ class Simple_window : public Graph_lib::Window {
 
 public:
   Simple_window(Graph_lib::Point xy, int w, int h, const std::string& title)
-      : Graph_lib::Window { xy, w, h, title }
+      : Graph_lib::Window { xy, w, h, title, false }
       , quit_button { Graph_lib::Point { x_max() - 70, 0 }, 70, 20, "Quit", cb_quit }
       , next_button { Graph_lib::Point { x_max() - 70, 20 }, 70, 20, "Next", cb_next }
       , next_pushed { false }

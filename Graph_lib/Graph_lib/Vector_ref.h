@@ -8,7 +8,7 @@ namespace Graph_lib {
 template <class T>
 class Vector_ref {
 public:
-  Vector_ref() {}
+  Vector_ref() = default;
   explicit Vector_ref(T* t)
   {
     if (t)
@@ -29,7 +29,7 @@ public:
 
   T& operator[](int i) { return *v[i]; }
   const T& operator[](int i) const { return *v[i]; }
-  int size() const { return v.size(); }
+  size_t size() const { return v.size(); }
 
 private:
   std::vector<T*> v;
