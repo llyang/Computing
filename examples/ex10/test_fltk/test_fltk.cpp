@@ -15,7 +15,7 @@ struct myWindow : Fl_Window
     show();
   }
 
-  void draw() {
+  void draw() override {
     Fl_Window::draw();
 
     fl_color(FL_BLUE);
