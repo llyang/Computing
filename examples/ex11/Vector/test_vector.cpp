@@ -40,7 +40,7 @@ int main()
   info_vector(v1, "v1");
   info_vector(v5, "v5");
 
-  cout << "//////// test move assignemt v4=std::move(v5)\n";
+  cout << "//////// test move assignment v4=std::move(v5)\n";
   v4 = std::move(v5);
   info_vector(v4, "v4");
   info_vector(v5, "v5");

@@ -12,8 +12,7 @@ public:
 
   ~Vector()
   {
-    if (elem)
-      delete[] elem;
+    delete[] elem;
   }
 
   std::size_t size() const { return sz; }
@@ -26,8 +25,8 @@ public:
   Vector(const Vector& v);
   Vector& operator=(const Vector& v);
 
-  Vector(Vector&& v);
-  Vector& operator=(Vector&& v);
+  Vector(Vector&& v) noexcept;
+  Vector& operator=(Vector&& v) noexcept;
 
   void reserve(std::size_t newalloc);
   std::size_t capacity() const { return space; }

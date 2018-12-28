@@ -48,7 +48,7 @@ Vector& Vector::operator=(const Vector& v)
   return *this;
 }
 
-Vector::Vector(Vector&& v)
+Vector::Vector(Vector&& v) noexcept
     : sz { v.sz }
     , elem { v.elem }
     , space { v.space }
@@ -58,13 +58,12 @@ Vector::Vector(Vector&& v)
   v.space = 0;
 }
 
-Vector& Vector::operator=(Vector&& v)
+Vector& Vector::operator=(Vector&& v) noexcept
 {
   if (this == &v)
     return *this;
 
-  if (elem)
-    delete[] elem;
+  delete[] elem;
   sz = v.sz;
   elem = v.elem;
   space = v.space;
@@ -83,8 +82,7 @@ void Vector::reserve(size_t newalloc)
   double* p { new double[newalloc] };
   for (size_t i = 0; i < sz; ++i)
     p[i] = elem[i];
-  if (elem)
-    delete[] elem;
+  delete[] elem;
   elem = p;
   space = newalloc;
 }
@@ -106,4 +104,3 @@ void Vector::push_back(double d)
   elem[sz] = d;
   ++sz;
 }
-

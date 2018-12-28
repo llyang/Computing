@@ -9,7 +9,7 @@ Vector_base::Vector_base(size_t sp)
 {
 }
 
-Vector_base::Vector_base(Vector_base&& v)
+Vector_base::Vector_base(Vector_base&& v) noexcept
     : elem { v.elem }
     , space { v.space }
 {
@@ -17,13 +17,12 @@ Vector_base::Vector_base(Vector_base&& v)
   v.space = 0;
 }
 
-Vector_base& Vector_base::operator=(Vector_base&& v)
+Vector_base& Vector_base::operator=(Vector_base&& v) noexcept
 {
   if (this == &v)
     return *this;
 
-  if (elem)
-    delete[] elem;
+  delete[] elem;
   elem = v.elem;
   space = v.space;
 
@@ -74,14 +73,14 @@ Vector& Vector::operator=(const Vector& v)
   return *this;
 }
 
-Vector::Vector(Vector&& v)
+Vector::Vector(Vector&& v) noexcept
     : Vector_base { std::move(v) }
     , sz { v.sz }
 {
   v.sz = 0;
 }
 
-Vector& Vector::operator=(Vector&& v)
+Vector& Vector::operator=(Vector&& v) noexcept
 {
   if (this == &v)
     return *this;
@@ -122,4 +121,3 @@ void Vector::push_back(double d)
   elem[sz] = d;
   ++sz;
 }
-

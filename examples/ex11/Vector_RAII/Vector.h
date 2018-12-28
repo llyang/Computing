@@ -11,13 +11,12 @@ public:
   Vector_base(const Vector_base&) = delete;
   Vector_base& operator=(const Vector_base&) = delete;
 
-  Vector_base(Vector_base&& v);
-  Vector_base& operator=(Vector_base&& v);
+  Vector_base(Vector_base&& v) noexcept;
+  Vector_base& operator=(Vector_base&& v) noexcept;
 
   ~Vector_base()
   {
-    if (elem)
-      delete[] elem;
+    delete[] elem;
   }
 
   double* elem;
@@ -40,8 +39,8 @@ public:
   Vector(const Vector& v);
   Vector& operator=(const Vector& v);
 
-  Vector(Vector&& v);
-  Vector& operator=(Vector&& v);
+  Vector(Vector&& v) noexcept;
+  Vector& operator=(Vector&& v) noexcept;
 
   void reserve(std::size_t newalloc);
   std::size_t capacity() const { return space; }

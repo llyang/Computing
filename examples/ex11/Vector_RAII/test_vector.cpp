@@ -38,7 +38,6 @@ int main()
 
   cout << "//////// move assignment v2=std::move(v1)\n";
   v2 = std::move(v1);
-  // cppcheck-suppress accessMoved
   info_vector(v1, "v1");
   info_vector(v2, "v2");
 }
@@ -60,4 +59,3 @@ void info_vector(const Vector& v, const std::string& n)
   }
   cout << '\n';
 }
-
