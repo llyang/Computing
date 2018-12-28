@@ -128,7 +128,14 @@ public:
 
   virtual void move(int dx, int dy); // move the shape +=dx and +=dy
 
+  // These two need to be virtual since class Text needs to override them
+  virtual Color color() const { return line_color(); }
+  virtual void set_color(Color c) { set_line_color(c); }
+
   Line_style line_style() const { return line_style_; }
+  int line_width() const { return line_style_.width(); }
+  Color line_color() const { return line_style_.color(); }
+  Stroke line_stroke() const { return line_style_.stroke(); }
 
   // These two need to be virtual since class Marks needs to override them
   virtual void set_line_style(Line_style sty) { line_style_ = sty; }
@@ -156,7 +163,7 @@ public:
 protected:
   Shape() = default;
 
-  Shape(std::initializer_list<Point> lst); // add() the Points to this Shape
+  Shape(std::initializer_list<Point> lst); // add the Points to this Shape
 
   virtual void draw_lines() const; // simply draw the appropriate lines
 
@@ -330,6 +337,15 @@ public:
 
   void set_text_style(Text_style text_style) { text_style_ = text_style; }
   Text_style text_style() const { return text_style_; }
+
+  void set_color(Color c) override { text_style_.set_color(c); }
+  Color color() const override { return text_style_.color(); }
+
+  void set_font(Font f) { text_style_.set_font(f); }
+  Font font() const { return text_style_.font(); }
+
+  void set_font_size(int sz) { text_style_.set_size(sz); }
+  int font_size() const { return text_style_.size(); }
 
 protected:
   void draw_lines() const override;
