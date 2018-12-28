@@ -42,14 +42,13 @@ Vector& Vector::operator=(const Vector& v)
     p = new double[v.sz];
     std::copy(v.elem, v.elem + v.sz, p);
   }
-  if (elem)
-    delete[] elem;
+  delete[] elem;
   elem = p;
   sz = v.sz;
   return *this;
 }
 
-Vector::Vector(Vector&& v)
+Vector::Vector(Vector&& v) noexcept
     : sz { v.sz }
     , elem { v.elem }
 {
@@ -58,17 +57,15 @@ Vector::Vector(Vector&& v)
   v.elem = nullptr;
 }
 
-Vector& Vector::operator=(Vector&& v)
+Vector& Vector::operator=(Vector&& v) noexcept
 {
   std::cout << "move assignment\n";
   if (this == &v)
     return *this;
-  if (elem)
-    delete[] elem;
+  delete[] elem;
   sz = v.sz;
   elem = v.elem;
   v.sz = 0;
   v.elem = nullptr;
   return *this;
 }
-

@@ -16,7 +16,7 @@ public:
       , tail { nullptr }
   {
   }
-  explicit List(std::initializer_list<double> lst);
+  List(std::initializer_list<double> lst);
   ~List();
 
   Link* begin() const { return head; }

@@ -7,12 +7,11 @@ class Vector {
 public:
   Vector();
   explicit Vector(std::size_t s, double d = 0.0);
-  explicit Vector(std::initializer_list<double> lst);
+  Vector(std::initializer_list<double> lst);
 
   ~Vector()
   {
-    if (elem)
-      delete[] elem;
+    delete[] elem;
   }
 
   std::size_t size() const { return sz; }
@@ -25,8 +24,8 @@ public:
   Vector(const Vector& v);
   Vector& operator=(const Vector& v);
 
-  Vector(Vector&& v);
-  Vector& operator=(Vector&& v);
+  Vector(Vector&& v) noexcept;
+  Vector& operator=(Vector&& v) noexcept;
 
 private:
   std::size_t sz;

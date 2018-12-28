@@ -10,7 +10,7 @@ class Vector {
 public:
   Vector();
   explicit Vector(std::size_t s, T t = T());
-  explicit Vector(std::initializer_list<T> lst);
+  Vector(std::initializer_list<T> lst);
 
   ~Vector();
 
@@ -24,8 +24,8 @@ public:
   Vector(const Vector& v);
   Vector& operator=(const Vector& v);
 
-  Vector(Vector&& v);
-  Vector& operator=(Vector&& v);
+  Vector(Vector&& v) noexcept;
+  Vector& operator=(Vector&& v) noexcept;
 
 private:
   std::allocator<T> alloc;
@@ -99,7 +99,7 @@ Vector<T>& Vector<T>::operator=(const Vector<T>& v)
 }
 
 template <typename T>
-Vector<T>::Vector(Vector<T>&& v)
+Vector<T>::Vector(Vector<T>&& v) noexcept
     : sz { v.sz }
     , elem { v.elem }
 {
@@ -108,7 +108,7 @@ Vector<T>::Vector(Vector<T>&& v)
 }
 
 template <typename T>
-Vector<T>& Vector<T>::operator=(Vector<T>&& v)
+Vector<T>& Vector<T>::operator=(Vector<T>&& v) noexcept
 {
   if (this == &v)
     return *this;
