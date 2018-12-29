@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.11)
 project(test_graph_lib)
 
 set(CMAKE_CXX_STANDARD 14)
@@ -13,11 +13,14 @@ link_directories(${FLTK_LIBRARY_DIR})
 find_package(JPEG REQUIRED)
 find_package(PNG REQUIRED)
 
+find_package(Threads REQUIRED)
+
 add_subdirectory(Graph_lib)
 
 foreach(ex test test_animation test_automove test_keyboard test_move test_thread test_vector_ref)
   add_executable(${ex}.exe ${ex}.cpp ${GRAPH_LIB})
-  target_link_libraries(${ex}.exe ${FLTK_LIBRARIES} ${JPEG_LIBRARIES} ${PNG_LIBRARIES})
+  target_link_libraries(${ex}.exe ${FLTK_LIBRARIES} ${JPEG_LIBRARIES} ${PNG_LIBRARIES}
+    ${CMAKE_THREAD_LIBS_INIT})
 endforeach(ex)
 
 file(COPY cmb.png DESTINATION ${CMAKE_BINARY_DIR})
