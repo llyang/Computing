@@ -48,7 +48,7 @@ void My_window::loop()
 
 int My_window::handle(int event)
 {
-  int ret { Fl_Window::handle(event) };
+  int ret { Graph_lib::Window::handle(event) };
   if (ret == 1)
     return ret;
   switch (event) {
@@ -56,9 +56,14 @@ int My_window::handle(int event)
   case FL_UNFOCUS:
     ret = 1;
     break;
+  case FL_SHORTCUT:
+    if (current_scene == &scene_play && Fl::event_key() == FL_Escape)
+      title();
+    ret = 1;
+    break;
   // TODO: need to deal with cases where two keys are pressed at the same time
   case FL_KEYDOWN: {
-    std::string key = Fl::event_text();
+    std::string key { Fl::event_text() };
     if (handle_keydown(key))
       ret = 1;
     else if (current_scene->handle_keydown(key))
@@ -66,7 +71,7 @@ int My_window::handle(int event)
     break;
   }
   case FL_KEYUP: {
-    std::string key = Fl::event_text();
+    std::string key { Fl::event_text() };
     if (current_scene->handle_keyup(key))
       ret = 1;
     break;

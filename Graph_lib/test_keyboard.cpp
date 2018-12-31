@@ -165,7 +165,7 @@ bool My_window::handle_mousepush(int button, int ex, int ey)
 
 int My_window::handle(int event)
 {
-  int ret { Fl_Window::handle(event) };
+  int ret { Graph_lib::Window::handle(event) };
   if (ret == 1)
     return ret;
   switch (event) {

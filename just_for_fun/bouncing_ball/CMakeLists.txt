@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.11)
 project(bouncing_ball)
 
 set(CMAKE_CXX_STANDARD 14)
